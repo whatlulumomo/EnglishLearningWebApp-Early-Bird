@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>index</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<h1>Welcome {{ username }}!</h1>
+<br>
+<a href="..">退出</a>
+
+<p id="test">123</p>
+
+
+<div id="list">Ajax 加载列表</div>
+<p id="list_result"></p>
+<div>
+    <p id="word">{{ word }}</p>
+    <p id="group">{{ group }}</p>
+    <p>{{ soundmark }}</p>
+    <p>{{ explanation }}</p>
+    <p>{{ demo_1 }}</p>
+    <p>{{ demo_1_translate }}</p>
+    <p>{{ demo_2 }}</p>
+    <p>{{ demo_2_translate }}</p>
+    <p>{{ demo_3 }}</p>
+    <p>{{ demo_3_translate }}</p>
+    <button id="next">Next</button>
+
+</div>
+
+<script>
+      $(document).ready(function() {
+        // 列表 list
+      $('#list').click(function(){
+          $.getJSON('/ajax_list/',function(ret){
+              console.log(ret)
+            //返回值 ret 在这里是一个列表
+            for (var i = ret.length - 1; i >= 0; i--) {
+              // 把 ret 的每一项显示在网页上
+              $('#list_result').append(' ' + ret[i])
+            };
+          $('#test').html("<b>Hello world!</b>");
+          })
+      })
+
+      $('#next').click(function () {
+          $.getJSON('/getNextWord/',function (ret) {
+              console.log(ret)
+          })
+      })
+    });
+</script>
+
+</body>
+</html>

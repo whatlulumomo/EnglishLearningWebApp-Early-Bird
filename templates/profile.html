@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Early Bird</title>
+</head>
+<!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
+
+<body>
+    <div class="navbar navbar-transparent">
+        <div class="container">
+            <a href=".."  class="navbar-brand"></a>
+
+            <label for="toggle-checkbox" class="menulable visible-xs-inline-block">MENU</label>
+            <input type="checkbox" class="hidden" id="toggle-checkbox"> 
+
+            <div class="nav navbar-nav nav-link hidden-xs">
+                <div class="space"></div>
+                <li><a href=".." class="menu-item text-left">首页</a></li>
+                <li><a href="profile.html" class="menu-item text-left">单词</a></li>
+                <li><a href="test.html" class="menu-item text-left">测试</a></li>
+                <li><a href="vocabulary.html" class="menu-item text-left">词本</a></li>
+                <li><a href="user.html" class="menu-item text-left">我的</a></li>
+            </div> 
+
+            <div class="nav navbar-nav navbar-right nav-link hidden-xs">
+                    <div class="navbar-form hidden-xs hidden-sm" role="search">
+                            <div class="input-group">
+                            <input type="text" class="form-control"><span
+                            class="input-group-addon btn btn-primary"><i class="fa fa-search"></i></span>
+                            </div>
+                    </div>
+
+                    <li><a href="helpdocument.html" calss="menu-item">帮助</a></li>
+                    <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
+{#                    <li><a href="#" calss="退出">退出</a></li>#}
+
+            </div>    
+        </div>
+    </div>
+    
+
+
+
+    <div class="studybox"><!-- 页面状态3 -->
+        <div class="pannel container col-md-10 col-md-offset-1"><!-- 开始背单词前的学习计划界面 -->
+            <div class="col-md-4 user-sidebar hidden-sm hidden-xs">
+                <div class="mainbutton">
+                    <div class="img-circle btn-group"><i class="fa fa-home"></i></div><!-- 终端单词记忆回到学习计划界面 -->
+                    <div class="img-circle btn-group"><i class="fa fa-bell-o"></i></div><!-- 系统通知 -->
+                    <div class="img-circle btn-group"><i class="fa fayin">英</i></div><!-- 按钮点击切换默认发音，当前状态默认英音，点击变成  '美'-->
+                </div>
+
+                <div class="avatar img-circle" style="overflow: hidden;">
+                    <img src="http://127.0.0.1:8000/static/img/portrait/1.png" width="100%" height="100%" />
+                </div>
+                
+
+                <div class="side-info">
+                    <div class="item"><span class="fa fa-user-o"><span class="title"> 用户: <span class="content">{{ nickname }}</span> </span> </span></div>
+                    <div class="item"><span class="fa fa-signal"><span class="title"> 等级: <span class="content">{{ level }}</span> </span> </span></div><!-- 打卡天数算等级：小学生，初中生，大学生以此类推...随意 -->
+                    <div class="item"><span class="fa fa-money"><span class="title"> 金币: <span class="content">{{ coin }}</span> </span></span></div><!-- 打卡天数算金币 -->
+                    <div class="item"><span class="fa fa-bullseye"><span class="title"> 目标: <span class="content">{{ target }}</span> </span></span></div><!-- 用户个人页面选择的考试 -->
+                    <div class="item"><span class="fa fa-book"><span class="title"> 词本: <span class="content">{{ wordbook }}</span> </span></span></div>
+                    <div class="item"><span class="fa fa-ellipsis-h"><span class="title"> 进度: <span class="content">{{ Progress }}</span> </span></span></div><!-- 当前学习词本已经背了的单词 -->
+                </div>
+
+            </div>
+
+            <div class="col-md-8  af-plancard">
+                <div class="planprogress text-center">
+                    <div class="item btn-group">
+                        <div class="title">今日单词</div>
+                        <div class="num"><span class="content">{{ word_num_today }}</span><span class="title">个</span></div>
+                    </div>
+
+                    <div class="item btn-group hidden-sm hidden-xs">
+                            <div class="title">已经记忆</div>
+                            <div class="num"><span class="content">{{ word_num_remember }}</span><span class="title">个</span></div>
+                    </div>
+
+                    <div class="item btn-group">
+                            <div class="title">累计打卡</div>
+                            <div class="num"><span class="content">{{ day_signup }}</span><span class="title">天</span></div>
+                    </div>
+                </div>
+                <span class="linespace hidden-sm hidden-xs"></span>
+
+                <div class="slogan text-center">
+                    <h4 class="encrage">不积跬步无以至千里, 今天你又迈出了一大步！</h4>
+                    <div> <a class="push" href="#"><i class="fa fa-repeat"></i>再次训练</a></div>
+                </div>
+
+                <div class="btngroup text-center">
+                    <div> <a class="btn" href="../index/">测试新词</a></div><!-- 测试页面下的新词 -->
+                    <div> <a class="btn" href="test.html">复习旧词</a></div>
+                    <!-- 测试页面下的旧词测试 -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+    
+    

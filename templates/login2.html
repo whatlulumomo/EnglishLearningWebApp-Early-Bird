@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<body>
+<h1>登录页面</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{uf.as_p}} 
+    <input type="submit" value="ok"></input>
+</form>
+<a href="http://127.0.0.1:8000/regist">注册</a>
+<h2>{{ A }}</h2>
+
+
+<div id="list">Ajax 加载列表</div>
+<p id="list_result"></p>
+
+<script>
+      $(document).ready(function() {
+        // 列表 list
+      $('#list').click(function(){
+          $.getJSON('/ajax_list/',function(ret){
+              console.log(ret)
+            //返回值 ret 在这里是一个列表
+            for (var i = ret.length - 1; i >= 0; i--) {
+              // 把 ret 的每一项显示在网页上
+              $('#list_result').append(' ' + ret[i])
+            };
+          })
+      })
+    });
+</script>
+
+
+</body>
+</html>

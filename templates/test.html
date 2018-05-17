@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Test</title>
+
+</head>
+    <div class="navbar navbar-transparent test-nav">
+        <div class="container">
+            <a href="main.html"  class="navbar-brand"></a>  
+
+            <label for="toggle-checkbox" class="menulable visible-xs-inline-block">MENU</label>
+            <input type="checkbox" class="hidden" id="toggle-checkbox"> 
+
+            <div class="nav navbar-nav nav-link hidden-xs">
+                <div class="space"></div>
+                <li><a href="main.html" class="menu-item text-left">首页</a></li>
+                <li><a href="profile.html" class="menu-item text-left">单词</a></li>
+                <li><a href="test.html" class="menu-item text-left">测试</a></li>
+                <li><a href="vocabulary.html" class="menu-item text-left">词本</a></li>
+                <li><a href="user.html" class="menu-item text-left">我的</a></li>
+            </div> 
+
+            <div class="nav navbar-nav navbar-right nav-link hidden-xs">
+                <div class="navbar-form hidden-xs hidden-sm" role="search">
+                        <div class="input-group">
+                        <input type="text" class="form-control"><span
+                        class="input-group-addon btn btn-primary"><i class="fa fa-search"></i></span>
+                        </div>
+                </div>
+
+                <li><a href="helpdocument.html" calss="menu-item">帮助</a></li>
+                <li><a href="signup.html" calss="menu-item">注册</a></li>
+                <li><a href="login.html" calss="menu-item">登录</a></li>
+            </div>    
+        </div>
+    </div>
+
+    <div class="testbox">
+        <div class="pannel container col-md-10 col-md-offset-1">
+            <!--加左右键翻页会比较方便 -->
+            <div class="lft-btn">
+                <div class="img-circle btn-group"><i class="fa fa-chevron-left fa-2x"></i></div><!-- 上一个单词 -->
+            </div>        
+            <div class="right-btn">
+                    <div class="img-circle btn-group"><i class="fa fa-chevron-right fa-2x"></i></div><!-- 下一个单词 -->
+            </div>
+
+            <div class="test-topbun text-left">
+                <div class="btn-group btn"> <abbr title="检测今天学习的新词">新词测试</abbr></div>
+                <div class="btn-group btn"> <abbr title="检测昨天学习的单词">昨日复习</abbr></div>
+                <div class="btn-group btn"> <abbr title="每测试完100个单词，会检测其中最不熟悉的40个单词">随机抽查</abbr></div>
+            </div>
+
+            <div class="mem-pannel">
+                <div class="mainbutton">
+                    <div class="text-left mem-menu">
+                        <div class="img-circle btn-group hidden-sm hidden-xs"><i class="fa fa-home"></i></div>
+                        <div class="img-circle btn-group hidden-sm hidden-xs"><i class="fa fayin">英</i></div>
+                        <div class="test-item btn-group test-mark1"><span class="fa fa-circle" style="color:#FE6158"></span>不认识:8</div>
+                        <div class="test-item btn-group"> <span class="fa fa-circle" style="color:#29CE42"></span>认识:12</div>
+                        <div class="test-item btn-group  hidden-xs"> <span class="fa fa-circle" style="color:#50DDED"></span>已测:20</div>
+                        <div class="test-item btn-group"> <span class="fa fa-circle" style="color:#FFC12F"></span>剩余:20</div>
+                        <span class="test-progress hidden-sm hidden-xs">
+                            <span class="known text-center">8</span>
+                            <span class="unknown text-center">12</span>
+                            <span class="pretest text-center">20</span>
+                        </span>   
+
+                    </div>
+                </div>
+
+                <div class="linespace"></div>
+
+                <div class="word-title text-center">
+                    <span class="word">List</span>
+                    <span class="volume hidden-sm hidden-xs">英<span class="yinbiao">[lɪst]</span><a class="fa fa-volume-up"></a></span>
+                    <span class="volume  hidden-sm hidden-xs">美<span class="yinbiao">[lɪst]</span><a class="fa fa-volume-up"></a></span>
+                </div>
+
+
+                <div class="word-content text-center">
+                    <div class="test-select">
+                        <div class="item">
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                            <span class="char">v.</span><span class="mean">清理</span>
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                        </div>
+                    </div>
+
+                    <div class="test-select">
+                        <div class="item">
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                        </div>
+                    </div>
+
+                    <div class="test-select">
+                        <div class="item">
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                        </div>
+                    </div>
+
+                    <div class="test-select">
+                        <div class="item">
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                            <span class="char">n.</span><span class="mean">清单,列表</span>
+                        </div>
+                    </div>  
+                    
+                    <div class="test-select">
+                            <div class="item">
+                            </span><span class="mean">不认识，超过10s未做选择</span>
+                            </div>
+                        </div>     
+                   
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+<body>
+    
+</body>

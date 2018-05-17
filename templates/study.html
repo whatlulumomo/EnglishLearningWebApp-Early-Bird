@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
+
+<body>
+    <div class="navbar navbar-transparent">
+        <div class="container">
+            <a href="main.html"  class="navbar-brand"></a>  
+
+            <label for="toggle-checkbox" class="menulable visible-xs-inline-block">MENU</label>
+            <input type="checkbox" class="hidden" id="toggle-checkbox"> 
+
+            <div class="nav navbar-nav nav-link hidden-xs">
+                <div class="space"></div>
+                <li><a href=".." class="menu-item text-left">首页</a></li>
+                <li><a href="../study" class="menu-item text-left">单词</a></li>
+                <li><a href="test.html" class="menu-item text-left">测试</a></li>
+                <li><a href="vocabulary.html" class="menu-item text-left">词本</a></li>
+                <li><a href="user.html" class="menu-item text-left">我的</a></li>
+            </div> 
+
+            <div class="spelltest nav navbar-nav navbar-right nav-link hidden-xs">
+                    <div class="navbar-form hidden-xs hidden-sm" role="search">
+                            <div class="input-group">
+                            <input type="text" class="form-control"><span
+                            class="input-group-addon btn btn-primary"><i class="fa fa-search"></i></span>
+                            </div>
+                    </div>
+
+                    <li><a href="helpdocument.html" calss="menu-item">帮助</a></li>
+{#                    <li><a href="signup.html" calss="menu-item">注册</a></li>#}
+                    <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
+
+{#                    <div>#}
+{#                        <img src="http://127.0.0.1:8000/static/img/portrait/1.png" width="5%" height="5%" />#}
+{#                    </div>#}
+            </div>    
+        </div>
+    </div>
+
+    <div class="wordbox"><!--页面状态2 状态1点击">>Go"跳转 -->
+        <div class="pannel container col-md-10 col-md-offset-1">
+            <!--加左右键翻页会比较方便 -->
+            <div class="lft-btn">
+                <div class="img-circle btn-group"><i class="fa fa-chevron-left fa-2x"></i></div><!-- 上一个单词 -->
+            </div>        
+            <div class="right-btn">
+                    <div class="img-circle btn-group"><i class="fa fa-chevron-right fa-2x"></i></div><!-- 下一个单词 -->
+            </div>
+
+            <div class="mem-pannel">
+                <div class="mainbutton">
+                    <div class="text-left mem-menu">
+                        <div class="img-circle btn-group hidden-sm hidden-xs"><i class="fa fa-home"></i></div>
+                        <div class="img-circle btn-group hidden-sm hidden-xs"><i class="fa fayin">英</i></div>
+
+{#                        <div class="mem-item btn-group checkbox-custom hidden-sm hidden-xs" id="first1">#}
+{#                            <input id="input1" class="mem-checkbox" type="checkbox">#}
+{#                            <div class="checkcircle"></div>#}
+{#                            <label for="input1"  class="item-input">关闭发音</label>#}
+{#                        </div><!-- 打开该按钮以后换单词不会再自动发音 -->#}
+
+                        <div class="mem-item btn-group checkbox-custom">
+                            <input id="input2" class="mem-checkbox" type="checkbox">
+                            <div class="checkcircle"></div>
+                            <label for="input2"  class="item-input">隐藏单词</label>
+                        </div>
+
+                        <div class="mem-item btn-group checkbox-custom hidden-sm hidden-xs">
+                            <input id="input3" class="mem-checkbox" type="checkbox">
+                            <div class="checkcircle"></div>
+                            <label for="input3"  class="item-input">隐藏音标</label>
+                        </div>
+
+                        <div class="mem-item btn-group checkbox-custom">
+                            <input id="input4" class="mem-checkbox" type="checkbox">
+                            <div class="checkcircle"></div>
+                            <label for="input4"  class="item-input">隐藏释义</label>
+                        </div>
+
+                        <div class="mem-item btn-group checkbox-custom hidden-sm hidden-xs">
+                            <input id="input5" class="mem-checkbox" type="checkbox">
+                            <div class="checkcircle"></div>
+                            <label for="input5"  class="item-input">拼写测试</label>
+                        </div>
+
+                        <span>12/40</span>  
+                        <!-- <div class="mem-item btn-group"><input type="checkbox">关闭发音</div>
+                        <div class="mem-item btn-group"><input type="checkbox">隐藏单词</div>
+                        <div class="mem-item btn-group"><input type="checkbox">隐藏音标</div>
+                        <div class="mem-item btn-group"><input type="checkbox">隐藏释义</div>
+                        <div class="mem-item btn-group"><input type="checkbox">拼写测试</div> -->          
+                    </div>
+                </div>
+
+                <div class="linespace"></div>
+
+                <div class="word-title">
+                    <span id="word" class="word">{{ word }}</span>
+                </div>
+
+                <div id='soundmark' class="soundmark">
+{#                    <span  class="soundmark">{{ soundmark }}</span><br>#}
+                    <span class="volume wordvolume">英 <span class="yinbiao"></span><a class="fa fa-volume-up"></a> {{ soundmark }} </span>
+                    <span class="volume wordvolume">美 <span class="yinbiao"></span><a class="fa fa-volume-up"></a> {{ soundmark }}</span>
+                </div>
+
+                <div><!--点击"拼写测试"以后会有这个框 -->
+                    <span class="word-spell hidden-sm hidden-xs"> <input type="text"> </span>
+                </div>
+
+                <div class="word-content">
+                    <div class="item translatedemo explanation">
+{#                        <span class="char">n.</span>#}
+
+                            {% for i in explanation %}
+                                <span class="mean">{{ i }}</span><br>
+                            {% endfor %}
+
+
+                    </div>
+                    <div class="item explanation">
+{#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
+{#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
+                        <div class="sen exampledemo">{{ demo_1 }}</div>
+                        <div class="sen translatedemo">{{ demo_1_translate }}</div>
+                    </div>
+                    <div class="item explanation">
+{#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
+{#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
+                        <div class="sen exampledemo ">{{ demo_2 }}</div>
+                        <div class="sen translatedemo">{{ demo_2_translate }}</div>
+                    </div>
+                    <div class="item explanation">
+{#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
+{#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
+                        <div class="sen exampledemo">{{ demo_3 }}</div>
+                        <div class="sen translatedemo">{{ demo_3_translate }}</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+<script>
+     $(document).ready(function() {
+         $('#input2').click(function () {
+             $('#word').toggle(300);
+         });
+     });
+
+     $(document).ready(function() {
+         $('#input3').click(function () {
+             $('#soundmark').toggle(300);
+         });
+     });
+
+     $(document).ready(function() {
+         $('#input4').click(function () {
+             $('.explanation').toggle(300);
+         });
+     });
+
+     $(document).ready(function() {
+         $('#input5').click(function () {
+             $('.word-spell').toggle(300);
+         });
+     });
+
+     $(document).ready(function() {
+         $('.word-spell').hide();
+     });
+
+     $(document).ready(function() {
+         $('.right-btn').click(function () {
+             $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
+                 window.location.reload(ret);
+            })
+         });
+     });
+
+     $(document).ready(function() {
+         $('.lft-btn').click(function () {
+             console.log(1);
+            $.getJSON('/getNextWord/', {cmd:"LAST"}, function (ret) {
+                 window.location.reload(ret)
+            })
+         });
+     });
+
+</script>
+
+</body>
+</html>
+
+    
+    
