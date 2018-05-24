@@ -171,23 +171,25 @@ def ajax_list(request):
         return JsonResponse([a[i%5]], safe=False)
 
 def getNextWord(request):
-    dict = Word.objects.all();
-
-    w = Word.objects.filter(wordname="guidance")[0]
-
     username = request.COOKIES.get('username', '')
+    dict = getWordbyUser(username)
+
+
     if request.session.get(username) == None:
         request.session[username] = 0
         wordindex = 0
     else:
-        wordindex = request.session[username]
+        wordindex = request.session[username] % len(dict)
         cmd = request.GET.get('cmd', 'default')
-        print(cmd)
+        # print(cmd)
         if cmd == "NEXT":
-            request.session[username] = (request.session[username] + 1) % dict.count()
+            request.session[username] = (request.session[username] + 1) % len(dict)
         else:
-            request.session[username] = (request.session[username] - 1 + dict.count()) % dict.count()
+            request.session[username] = (request.session[username] - 1 + len(dict)) % len(dict)
 
+    wordname = dict[wordindex][0]
+    print(wordname)
+    word = Word.objects.filter(wordname=wordname)[0]
 
     word = Word.objects.all()[wordindex]
     wmap = {'username': username}

@@ -25,9 +25,17 @@ def getwordsfortest(username):
     return book
 
 def getWordbyUser(username):
-    words = User.objects.get_or_create(username=username)[0].word_total_remember
-    wordbook = words.split(";")
-    print(wordbook)
+    words = User.objects.get_or_create(username=username)[0].word_total_plan
+    wordlist = words.split(";")[:-1]
+    wordbook = []
+    for w in wordlist:
+        w = w.split(",")
+        wordbook.append([w[0],int(w[1]),int(w[2])])
+    return wordbook
+
+def chooseWords():
+    pass
+
 
 
 
