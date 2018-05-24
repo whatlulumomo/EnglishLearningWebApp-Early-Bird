@@ -5,7 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from .models import User,Word
 from django.http import JsonResponse
-
+from .Tools import *
 # Create your views here.
 
 #表单
@@ -21,6 +21,15 @@ def homepage(req):
 
 # 注册
 def regist(req):
+    def check(string):
+        if string.isalpha() == False:
+            return False
+        else:
+            if len(string) < 6 or len(string) > 12 or len(string) < 6 or len(string) > 6:
+                return False
+            else:
+                return True
+
     if req.method == 'POST':
         # uf = UserForm(req.POST)
         # if uf.is_valid():
@@ -31,8 +40,9 @@ def regist(req):
         password = req.POST.get('passwd', 'default')
         email = req.POST.get('email', 'default')
         nickname = req.POST.get('nickname', 'default')
-        # print(username,password,email,nickname)
-
+        # print(username,password,email,nickname)\
+        if check(password) == False or check(username) == False:
+            return render_to_response('signup.html',{'hint':'账号或者密码不符合要求'},context_instance=RequestContext(req))
         #添加到数据库
         #User.objects.get_or_create(username = username,password = password)
         registAdd = User.objects.get_or_create(username = username,password = password,email=email,nickname=nickname)[1]
@@ -88,10 +98,14 @@ def profile(request):
     json['day_signup'] = user.day_signup
     return render_to_response('profile.html', json)
 
+def test(request):
+    username = request.COOKIES.get('username', '')
+    wordbook = getwordsfortest(username)
+    return render_to_response('test.html',wordbook[0])
 
 
 #登录成功
-def index(request):
+def study(request):
 
     dict = Word.objects.all();
     username = request.COOKIES.get('username','')
@@ -159,6 +173,8 @@ def ajax_list(request):
 def getNextWord(request):
     dict = Word.objects.all();
 
+    w = Word.objects.filter(wordname="guidance")[0]
+
     username = request.COOKIES.get('username', '')
     if request.session.get(username) == None:
         request.session[username] = 0
@@ -166,13 +182,12 @@ def getNextWord(request):
     else:
         wordindex = request.session[username]
         cmd = request.GET.get('cmd', 'default')
+        print(cmd)
         if cmd == "NEXT":
             request.session[username] = (request.session[username] + 1) % dict.count()
         else:
             request.session[username] = (request.session[username] - 1 + dict.count()) % dict.count()
 
-
-    # print(wordindex)
 
     word = Word.objects.all()[wordindex]
     wmap = {'username': username}

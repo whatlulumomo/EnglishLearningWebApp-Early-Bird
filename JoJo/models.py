@@ -7,21 +7,25 @@ class User(models.Model):
     password = models.CharField(max_length=50)                  #密码
     nickname = models.CharField(max_length=20,default='Tom')    #昵称
     level = models.CharField(max_length=20, default='大不自多')  #等级
-    gender =  models.CharField(max_length=5, default='')        #性别
-    target = models.CharField(max_length=50, default='')        #目标
+    gender =  models.CharField(max_length=5, default='',null=True,blank=True)        #性别
+    target = models.CharField(max_length=50, default='',null=True,blank=True)        #目标
     coin =  models.IntegerField(default=0)                      #金币
     wordbook = models.CharField(max_length=20, default='GRE')   #单词书
     email = models.CharField(max_length=30, default='')
+
 
     # 动态信息
     word_num_today = models.IntegerField(default=0)             #今日单词数量
     word_num_remember = models.IntegerField(default=0)          #已经记忆
     day_signup = models.IntegerField(default=0)                 #累计打卡
 
+    word_total_remember = models.CharField(max_length=20000,default='',null=True,blank=True)
+    word_total_plan = models.CharField(max_length=20000,default='',null=True,blank=True)
+    record = models.CharField(max_length=20000,default='',null=True,blank=True)
 
 
-    def __unicode__(self):
-        return self.username
+
+
 
 class Word(models.Model):
     wordname    =  models.CharField(max_length=50, primary_key=True)

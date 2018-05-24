@@ -283,17 +283,55 @@ abbr[title]{
 
 .signup-box{
     background-color: white;
-    margin-top: -600px;
-    margin-left: 35%;
-    margin-right: 35%;
-    height: 535px;
-   /*  width: 80%; */
     position: relative;
     display: block;
     border-radius: 15px;
     box-shadow: 0px 3px 8px #CCCCCC;
-    text-align: center;
+    text-align: center;}
+
+
+/* 屏幕适配 */
+@media screen and (max-width:500px){
+    .signup-box{
+        margin-top: -680px;
+        margin-left: 5%;
+        margin-right: 5%;
+        height: 580px;}
 }
+
+@media screen and (min-width:600px) and (max-width:999px){
+    .signup-box{
+        margin-top: -650px;
+        margin-left: 20%;
+        margin-right: 20%;
+        height: 580px;}
+}
+
+@media screen and (min-width:1000px) and (max-width:1300px){
+    .signup-box{
+        margin-top: -650px;
+        margin-left: 32%;
+        margin-right: 32%;
+        height: 580px;}
+}
+
+@media screen and (min-width:1301px) and (max-width:1600px){
+    .signup-box{
+        margin-top: -650px;
+        margin-left: 35%;
+        margin-right: 35%;
+        height: 580px;}
+}
+
+@media screen and (min-width:1601px) and (max-width:2000px){
+    .signup-box{
+        margin-top: -650px;
+        margin-left: 38%;
+        margin-right: 38%;
+        height: 580px;}
+}
+
+
 
 .signup-box .logo img{
     width: 132px;
@@ -301,9 +339,10 @@ abbr[title]{
     margin-bottom:50px;
 }
 
+/* 填写下划线 */
 .login-form #formitem{
     border-bottom: 0.5px solid #CCCCCC;
-    width:74%;
+    width:74%;/* gai */
     margin-top:0px;
     margin-bottom:30px;
     margin-right: auto;
@@ -313,6 +352,7 @@ abbr[title]{
 
 .login-icon{
     margin:auto 2px;
+    display: inline-block;/* gai */
 }
 
 
@@ -325,6 +365,7 @@ abbr[title]{
     border: none;
     box-shadow: none;
     background: transparent;
+    display: inline-block;/* gai */
 }
 
 .signupbutton{
@@ -333,7 +374,7 @@ abbr[title]{
     color: white;
     line-height: 150%;
     border: #4657D9;
-    width: 290px;    
+    width: 74%;    /* gai */
     height:40px;
     border-radius: 25px;
     background:#4657D9;
@@ -364,11 +405,11 @@ abbr[title]{
 
 /*################### 登录页 ########################*/
 .loginbutton{
-    margin:20px auto 10px auto;
+    margin:20px auto 15px auto;
     font-size: 16px;
     color: white;
     line-height: 150%;
-    width: 290px;    
+    width:74%;   /* gai */  
     height:40px;
     border-radius: 25px;
     border: #4657D9;
@@ -404,11 +445,7 @@ abbr[title]{
     display: block;
 }
 
-.login-icon{
-    margin-top: 20px;
-    margin-left:5px;
-    margin-right: 5px;
-}
+
 
 .signup-box .socio-login .login-icon a{
     text-decoration: none;
@@ -786,26 +823,6 @@ abbr[title]{
 .wordbox .mem-pannel .word-title .word{
     font-size: 30px;
     padding-right:30px;
-}
-
-.soundmark{
-    font-size: 18px;
-    padding-right:50px;
-    margin-right: 20px;
-}
-
-.wordvolume{
-    padding-right:30px;
-}
-
-
-
-.exampledemo{
-    font-size: 22px;
-}
-
-.translatedemo{
-    font-size: 15px;
 }
 
 .wordbox .mem-pannel .word-title .fa,
