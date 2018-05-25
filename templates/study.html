@@ -94,66 +94,72 @@
                             <label for="input5"  class="item-input">拼写测试</label>
                         </div>
 
-                        <span>12/40</span>  
-                        <!-- <div class="mem-item btn-group"><input type="checkbox">关闭发音</div>
-                        <div class="mem-item btn-group"><input type="checkbox">隐藏单词</div>
-                        <div class="mem-item btn-group"><input type="checkbox">隐藏音标</div>
-                        <div class="mem-item btn-group"><input type="checkbox">隐藏释义</div>
-                        <div class="mem-item btn-group"><input type="checkbox">拼写测试</div> -->          
+                        <span>{{ index }}/{{ total }}</span>
+
                     </div>
                 </div>
 
                 <div class="linespace"></div>
-
-                <div class="word-title">
-                    <span id="word" class="word">{{ word }}</span>
-                </div>
-
-                <div id='soundmark' class="soundmark">
-{#                    <span  class="soundmark">{{ soundmark }}</span><br>#}
-                    <span class="volume wordvolume">英 <span class="yinbiao"></span><a class="fa fa-volume-up"></a> {{ soundmark }} </span>
-                    <span class="volume wordvolume">美 <span class="yinbiao"></span><a class="fa fa-volume-up"></a> {{ soundmark }}</span>
-                </div>
-
-                <div><!--点击"拼写测试"以后会有这个框 -->
-                    <span class="word-spell hidden-sm hidden-xs"> <input type="text"> </span>
-                </div>
-
-                <div class="word-content">
-                    <div class="item translatedemo explanation">
-{#                        <span class="char">n.</span>#}
-
-                            {% for i in explanation %}
-                                <span class="mean">{{ i }}</span><br>
-                            {% endfor %}
-
-
-                    </div>
-                    <div class="item explanation">
-{#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
-{#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
-                        <div class="sen exampledemo">{{ demo_1 }}</div>
-                        <div class="sen translatedemo">{{ demo_1_translate }}</div>
-                    </div>
-                    <div class="item explanation">
-{#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
-{#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
-                        <div class="sen exampledemo ">{{ demo_2 }}</div>
-                        <div class="sen translatedemo">{{ demo_2_translate }}</div>
-                    </div>
-                    <div class="item explanation">
-{#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
-{#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
-                        <div class="sen exampledemo">{{ demo_3 }}</div>
-                        <div class="sen translatedemo">{{ demo_3_translate }}</div>
+                {% if error != 'NoWord' %}
+                    <div class="word-title">
+                        <span id="word" class="word">{{ word }}</span>
                     </div>
 
-                    <div class="bannerbutton text-center">
-                        <button id="know" class="left btn ">认识</button>
-                        <button id="notknow" class="right btn">不认识</button>
 
+                    <div id='soundmark' class="soundmark">
+    {#                    <span  class="soundmark">{{ soundmark }}</span><br>#}
+                        <span class="volume wordvolume">英 <span class="yinbiao"></span><a class="fa fa-volume-up"></a> {{ soundmark }} </span>
+                        <span class="volume wordvolume">美 <span class="yinbiao"></span><a class="fa fa-volume-up"></a> {{ soundmark }}</span>
                     </div>
-                </div>
+
+                    <div><!--点击"拼写测试"以后会有这个框 -->
+                        <span class="word-spell hidden-sm hidden-xs"> <input type="text"> </span>
+                    </div>
+
+
+                    <div class="word-content">
+                        <div class="item translatedemo explanation">
+    {#                        <span class="char">n.</span>#}
+
+                                {% for i in explanation %}
+                                    <span class="mean">{{ i }}</span><br>
+                                {% endfor %}
+
+
+                        </div>
+                        <div class="item explanation">
+    {#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
+    {#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
+                            <div class="sen exampledemo">{{ demo_1 }}</div>
+                            <div class="sen translatedemo">{{ demo_1_translate }}</div>
+                        </div>
+                        <div class="item explanation">
+    {#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
+    {#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
+                            <div class="sen exampledemo ">{{ demo_2 }}</div>
+                            <div class="sen translatedemo">{{ demo_2_translate }}</div>
+                        </div>
+                        <div class="item explanation">
+    {#                            <span class="char">n.</span><span class="mean">清单，列表</span>#}
+    {#                            <div class="sen"><span class="eg">eg.</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam aliquid sed recusandae odit magnam voluptates nisi sequi iste placeat laudantium. Praesentium laudantium quos ratione commodi perspiciatis corrupti dolores ipsum pariatur.</div>#}
+                            <div class="sen exampledemo">{{ demo_3 }}</div>
+                            <div class="sen translatedemo">{{ demo_3_translate }}</div>
+                        </div>
+
+                        <div class="bannerbutton text-center">
+                            <button id="know" class="left btn ">认识</button>
+                            <button id="notknow" class="right btn">不认识</button>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="word-title">
+                        <span id="word" class="word">您还没选词哦，请进入选词界面选词</span>
+                        <div class="bannerbutton text-center">
+                            <button id="choosewordbtn" class="left btn " onclick="window.location.href='../wordbook'">开始选词</button>
+                        </div>
+                    </div>
+
+                {% endif %}
 
             </div>
 

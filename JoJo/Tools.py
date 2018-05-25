@@ -33,6 +33,15 @@ def getWordbyUser(username):
         wordbook.append([w[0],int(w[1]),int(w[2])])
     return wordbook
 
+
+def getWordfromBookbyGroup(group):
+    wordsearch = Word.objects.filter(group=group)
+    result = []
+    for i in wordsearch:
+        result.append((i.wordname, i.explanation))
+    return tuple(result)
+
+
 def chooseWords():
     pass
 

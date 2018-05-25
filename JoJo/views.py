@@ -6,6 +6,8 @@ from django.template import RequestContext
 from .models import User,Word
 from django.http import JsonResponse
 from .Tools import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 #表单
@@ -98,25 +100,58 @@ def profile(request):
     json['day_signup'] = user.day_signup
     return render_to_response('profile.html', json)
 
+
+# 选词
+def wordbook(request):
+    json = {}
+    username = request.COOKIES.get('username','')
+    json['username'] = username
+    user = User.objects.filter(username__exact=username)[0]
+    json['nickname'] = user.nickname
+    json['coin'] = user.coin
+    json['level'] = user.level
+    json['target'] = user.target
+    json['word_num_today'] = user.word_num_today
+    json['word_num_remember'] = user.word_num_remember
+    json['day_signup'] = user.day_signup
+    json['target'] = user.wordbook
+    words = getWordfromBookbyGroup(json['target'])
+    paginator = Paginator(words, 10)  # Show 10 words per page
+
+    page = request.GET.get('page')
+    try:
+        words = paginator.page(page)
+    except PageNotAnInteger:
+        words = paginator.page(1)   # If page is not an integer, deliver first page.
+    except EmptyPage:
+        words = paginator.page(paginator.num_pages) # If page is out of range (e.g. 9999), deliver last page of results.
+
+    json['words'] = words
+    return render_to_response('wordbook.html', json)
+
 def test(request):
     username = request.COOKIES.get('username', '')
     wordbook = getwordsfortest(username)
     return render_to_response('test.html',wordbook[0])
 
 
-#登录成功
+#学习
 def study(request):
-
-    dict = Word.objects.all();
     username = request.COOKIES.get('username','')
+    dict = getWordbyUser(username)
     user = User.objects.filter(username__exact=username)[0]
+
+    if len(dict) == 0:
+        json = {'error':'NoWord'}
+        return render_to_response('study.html', json)
+
 
     if request.session.get(username) == None:
         request.session[username] = 0
         wordindex = 0
     else:
         wordindex = request.session[username]
-        request.session[username] = (request.session[username]+0)%dict.count()
+        request.session[username] = (request.session[username]+0)%len(dict)
 
     # print(wordindex)
     word = Word.objects.all()[wordindex]
@@ -132,6 +167,8 @@ def study(request):
     json['demo_3'] = word.demo_3
     json['demo_3_translate'] = word.demo_3_translate
     json['nickname'] = user.nickname
+    json['index'] = wordindex+1
+    json['total'] = len(dict)
 
     # print(json)
 
@@ -161,7 +198,6 @@ def share(req):
 a = [1,2,3,4,5]
 def ajax_list(request):
     username = request.COOKIES.get('username', '')
-    print(username)
     if request.session.get(username) == None:
         request.session[username] = 0
         return JsonResponse([a[0]], safe=False)
@@ -170,10 +206,11 @@ def ajax_list(request):
         i = request.session[username]
         return JsonResponse([a[i%5]], safe=False)
 
+
+
 def getNextWord(request):
     username = request.COOKIES.get('username', '')
     dict = getWordbyUser(username)
-
 
     if request.session.get(username) == None:
         request.session[username] = 0
@@ -188,11 +225,14 @@ def getNextWord(request):
             request.session[username] = (request.session[username] - 1 + len(dict)) % len(dict)
 
     wordname = dict[wordindex][0]
-    print(wordname)
     word = Word.objects.filter(wordname=wordname)[0]
 
-    word = Word.objects.all()[wordindex]
+
+    # word = Word.objects.all()[wordindex]
     wmap = {'username': username}
+    wmap['total'] = str(len(dict))
+    wmap['index'] = str(wordindex+1)
+    # print(len(dict),wordindex)
     wmap['word'] = word.wordname
     wmap['group'] = word.group
     wmap['soundmark'] = word.soundmark
@@ -203,4 +243,5 @@ def getNextWord(request):
     wmap['demo_2_translate'] = word.demo_2_translate
     wmap['demo_3'] = word.demo_3
     wmap['demo_3_translate'] = word.demo_3_translate
+    print(wmap)
     return JsonResponse(wmap, safe=False)

@@ -123,7 +123,7 @@ abbr[title]{
 }
 
 #know {
-    margin:20px 20px 5px 20px;
+    margin:50px 20px 5px 20px;
     width: 25%;
 }
 
@@ -140,7 +140,7 @@ abbr[title]{
 }
 
 #notknow {
-    margin:20px 20px 5px 20px;
+    margin:50px 20px 5px 20px;
     width: 25%;
 }
 
@@ -514,7 +514,7 @@ abbr[title]{
     margin-top: 20px;
     border-radius: 15px;
     box-shadow: 0px 3px 20px rgba(0,0,0,0.16);
-    height:600px;
+    height:750px;
     background:white;
 }
 
@@ -858,6 +858,12 @@ abbr[title]{
 .wordbox .mem-pannel .word-title .word{
     font-size: 30px;
     padding-right:30px;
+    margin-right: auto;
+    margin-left: 35px;
+}
+
+#soundmark{
+    margin-left: 65px;
 }
 
 .wordbox .mem-pannel .word-title .fa,
@@ -917,6 +923,8 @@ abbr[title]{
 
 .wordbox .word-content .item{
     margin-bottom: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
     line-height: 170%;
 }
 
@@ -1129,3 +1137,19 @@ abbr[title]{
     margin-right:10px;
 }
 
+#wordbook{
+    width: 84%;
+    margin-top: 60px;
+    margin-left: 8%;
+    margin-right: 8%;
+    border-radius: 20px;
+}
+
+#wordtitle{
+    color: #4657D9;
+}
+
+#pagedisplay{
+    margin-left: auto;
+    margin-right: auto;
+}
