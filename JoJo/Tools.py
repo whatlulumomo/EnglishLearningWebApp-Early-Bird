@@ -42,9 +42,36 @@ def getWordfromBookbyGroup(group):
     return tuple(result)
 
 
-def chooseWords():
-    pass
+def chooseWords(username, wordname, status):
+    # print(username, wordname, status)
+    user = User.objects.filter(username__exact=username)[0]
+    userdict = user.word_total_plan
+    # print("old:",userdict)
+    userdict = userdict.split(";")[:-1]
 
+    result = ""
+    if status == "false":
+
+        for word in userdict:
+            name = word.split(",")[0]
+            if name == wordname:
+                continue
+            else:
+                result += word+";"
+
+    else:
+        for word in userdict:
+            name = word.split(",")[0]
+            if name == wordname:
+                return
+            result += word + ";"
+            print(result)
+
+        result += wordname+",1,1;"
+
+    user.word_total_plan = result
+    user.save()
+    # print(result)
 
 
 

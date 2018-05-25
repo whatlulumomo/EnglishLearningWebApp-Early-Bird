@@ -195,17 +195,13 @@ def share(req):
         uf = UserForm()
     return render_to_response('share.html',{'uf':uf})
 
-a = [1,2,3,4,5]
-def ajax_list(request):
+def addword(request):
     username = request.COOKIES.get('username', '')
-    if request.session.get(username) == None:
-        request.session[username] = 0
-        return JsonResponse([a[0]], safe=False)
-    else:
-        request.session[username] += 1
-        i = request.session[username]
-        return JsonResponse([a[i%5]], safe=False)
-
+    wordname = request.GET['wordname']
+    status = request.GET['status']
+    print(wordname,status)
+    chooseWords(username,wordname,status)
+    return HttpResponse('receive')
 
 
 def getNextWord(request):
