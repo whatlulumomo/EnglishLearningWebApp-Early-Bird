@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^wordbook/$',  'JoJo.views.wordbook', name='wordbook'),  # 个人主页
     url(r'^addword/$', 'JoJo.views.addword', name='addword'),
     url(r'^getNextWord/$', 'JoJo.views.getNextWord', name='getNextWord'),
+    url(r'^statistic/$', 'JoJo.views.statistic', name='statistic'),
+
 ]

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Early Bird</title>
+</head>
+<!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
+
+<body>
+    <div class="navbar navbar-transparent">
+        <div class="container">
+            <a href=".."  class="navbar-brand"></a>
+
+            <label for="toggle-checkbox" class="menulable visible-xs-inline-block">MENU</label>
+            <input type="checkbox" class="hidden" id="toggle-checkbox"> 
+
+            <div class="nav navbar-nav nav-link hidden-xs">
+                <div class="space"></div>
+                <li><a href=".." class="menu-item text-left">首页</a></li>
+                <li><a href="../test" class="menu-item text-left">测试</a></li>
+                <li><a href="../wordbook" class="menu-item text-left">词本</a></li>
+                <li><a href="../statistic" class="menu-item text-left">统计</a></li>
+                <li><a href="../profile" class="menu-item text-left">我的</a></li>
+            </div> 
+
+            <div class="nav navbar-nav navbar-right nav-link hidden-xs">
+                    <div class="navbar-form hidden-xs hidden-sm" role="search">
+                            <div class="input-group">
+                            <input type="text" class="form-control"><span
+                            class="input-group-addon btn btn-primary"><i class="fa fa-search"></i></span>
+                            </div>
+                    </div>
+
+                    <li><a href="helpdocument.html" calss="menu-item">帮助</a></li>
+                    <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
+
+            </div>    
+        </div>
+    </div>
+    
+
+
+
+    <div class="studybox"><!-- 页面状态3 -->
+        <div class="pannel container col-md-10 col-md-offset-1" style="height: 300%"><!-- 开始背单词前的学习计划界面 -->
+
+            <h3 class="text-center" style="color:#999">您的单词报告已生成</h3>
+
+            <div style="height: 33%" id="1">
+                <div id="container" style="height: 90%;margin-top: 5%; margin-bottom: 5%"></div>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+                <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+                <script type="text/javascript">
+                    var dom = document.getElementById("container");
+                    var myChart = echarts.init(dom);
+                    var app = {};
+                    option = null;
+                    app.title = '折柱混合';
+
+                    option = {
+                        title: {text: '单词掌握统计半月报'},
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'cross',
+                                crossStyle: {
+                                    color: '#999'
+                                }
+                            }
+                        },
+                        toolbox: {
+                            feature: {
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        legend: {
+                            data:['已经掌握','总计划量','准确率']
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: ['1号','2号','3号','4号','5号','6号','7号','8号','9号','10号','11号','12号','13号','14号','15号'],
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '已经掌握',
+                                min: 0,
+                                max: 2000,
+                                interval: 200
+                            },
+                            {
+                                type: 'value',
+                                name: '总计划量',
+                                min: 0,
+                                max: 2000,
+                                interval: 200
+                            }
+                        ],
+                        series: [
+                            {
+                                name:'已经掌握',
+                                type:'bar',
+                                color:"#02DF82",
+                                data:[20, 30, 40, 60, 70, 90, 100, 120, 140, 160,200, 240,242,250,256]
+                            },
+                            {
+                                name:'总计划量',
+                                type:'bar',
+                                color:'#4657D9',
+                                data:[50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600,650,700,750]
+                            }
+                        ]
+                    };
+                    ;
+                    if (option && typeof option === "object") {
+                        myChart.setOption(option, true);
+                    }
+                </script>
+            </div>
+
+                <div style="height: 33%;margin-left:5%;margin-right: 5%;width: 90%;" id="2">
+                   <div id="container2" style="height: 90%;margin-top: 5%; margin-bottom: 5%"></div>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+                   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+                   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+                   <script type="text/javascript">
+                var dom = document.getElementById("container2");
+                var myChart = echarts.init(dom);
+                var app = {};
+                option = null;
+                function getVirtulData(year) {
+                    year = year || '2018';
+                    var date = +echarts.number.parseDate(year + '-01-01');
+                    var end = +echarts.number.parseDate((+year + 1) + '-01-01');
+                    var dayTime = 3600 * 24 * 1000;
+                    var data = [];
+                    for (var time = date; time < end; time += dayTime) {
+                        data.push([
+                            echarts.format.formatTime('yyyy-MM-dd', time),
+                            Math.floor(150)
+                        ]);
+                    }
+                    return data;
+                }
+
+                var data = getVirtulData(2018);
+
+                option = {
+                    backgroundColor: '#404a59',
+
+                    title: {
+                        top: 30,
+                        text: '2018年 Early Bird 单词打卡记录',
+                        left: 'center',
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    tooltip : {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        top: '30',
+                        left: '100',
+                        data:['单词量', 'Top 12'],
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    calendar: [{
+                        top: 100,
+                        left: 'center',
+                        range: ['2018-01-01', '2018-06-30'],
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: '#000',
+                                width: 4,
+                                type: 'solid'
+                            }
+                        },
+                        yearLabel: {
+                            formatter: '{start}  1st',
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#323c48',
+                                borderWidth: 1,
+                                borderColor: '#111'
+                            }
+                        }
+                    }, {
+                        top: 340,
+                        left: 'center',
+                        range: ['2018-07-01', '2018-12-31'],
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: '#000',
+                                width: 4,
+                                type: 'solid'
+                            }
+                        },
+                        yearLabel: {
+                            formatter: '{start}  2nd',
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#323c48',
+                                borderWidth: 1,
+                                borderColor: '#111'
+                            }
+                        }
+                    }],
+                    series : [
+                        {
+                            name: '单词量',
+                            type: 'scatter',
+                            coordinateSystem: 'calendar',
+                            data: data,
+                            symbolSize: function (val) {
+                                return val[1]/20;
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: '#ddb926'
+                                }
+                            }
+                        },
+                        {
+                            name: '步数',
+                            type: 'scatter',
+                            coordinateSystem: 'calendar',
+                            calendarIndex: 1,
+                            data: data,
+                            symbolSize: function (val) {
+                                return val[1] / 20;
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: '#ddb926'
+                                }
+                            }
+                        },
+                        {
+                            name: 'Top 12',
+                            type: 'effectScatter',
+                            coordinateSystem: 'calendar',
+                            calendarIndex: 1,
+                            data: data.sort(function (a, b) {
+                                return b[1] - a[1];
+                            }).slice(0, 12),
+                            symbolSize: function (val) {
+                                return val[1] / 20;
+                            },
+                            showEffectOn: 'render',
+                            rippleEffect: {
+                                brushType: 'stroke'
+                            },
+                            hoverAnimation: true,
+                            itemStyle: {
+                                normal: {
+                                    color: '#f4e925',
+                                    shadowBlur: 10,
+                                    shadowColor: '#333'
+                                }
+                            },
+                            zlevel: 1
+                        },
+                        {
+                            name: 'Top 12',
+                            type: 'effectScatter',
+                            coordinateSystem: 'calendar',
+                            data: data.sort(function (a, b) {
+                                return b[1] - a[1];
+                            }).slice(0, 12),
+                            symbolSize: function (val) {
+                                return val[1] / 20;
+                            },
+                            showEffectOn: 'render',
+                            rippleEffect: {
+                                brushType: 'stroke'
+                            },
+                            hoverAnimation: true,
+                            itemStyle: {
+                                normal: {
+                                    color: '#f4e925',
+                                    shadowBlur: 10,
+                                    shadowColor: '#333'
+                                }
+                            },
+                            zlevel: 1
+                        }
+                    ]
+                };
+                ;
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                }
+                       </script>
+                </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+    
+    

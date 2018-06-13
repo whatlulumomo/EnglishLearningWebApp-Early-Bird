@@ -23,10 +23,11 @@
             <div class="nav navbar-nav nav-link hidden-xs">
                 <div class="space"></div>
                 <li><a href=".." class="menu-item text-left">首页</a></li>
-{#                <li><a href="../study" class="menu-item text-left">单词</a></li>#}
                 <li><a href="../test" class="menu-item text-left">测试</a></li>
-                <li><a href="#" class="menu-item text-left">词本</a></li>
+                <li><a href="../wordbook" class="menu-item text-left">词本</a></li>
+                <li><a href="../statistic" class="menu-item text-left">统计</a></li>
                 <li><a href="../profile" class="menu-item text-left">我的</a></li>
+
             </div> 
 
             <div class="spelltest nav navbar-nav navbar-right nav-link hidden-xs">
@@ -37,8 +38,7 @@
                             </div>
                     </div>
 
-                    <li><a href="helpdocument.html" calss="menu-item">帮助</a></li>
-{#                    <li><a href="signup.html" calss="menu-item">注册</a></li>#}
+                    <li><a href="#" calss="menu-item">帮助</a></li>
                     <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
 
 {#                    <div>#}
@@ -198,6 +198,7 @@
      $(document).ready(function() {
          $('.right-btn').click(function () {
              $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
+                 console.log(ret);
                  window.location.reload(ret);
             })
          });

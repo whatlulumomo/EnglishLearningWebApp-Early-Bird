@@ -153,8 +153,9 @@ def study(request):
         wordindex = request.session[username]
         request.session[username] = (request.session[username]+0)%len(dict)
 
-    # print(wordindex)
-    word = Word.objects.all()[wordindex]
+    wordname = dict[wordindex][0]
+    word = Word.objects.filter(wordname=wordname)[0]
+
     json = {'username':username}
     json['word'] = word.wordname
     json['group'] = word.group
@@ -205,6 +206,7 @@ def addword(request):
 
 
 def getNextWord(request):
+    print("AAAAAAA")
     username = request.COOKIES.get('username', '')
     dict = getWordbyUser(username)
 
@@ -224,7 +226,6 @@ def getNextWord(request):
     word = Word.objects.filter(wordname=wordname)[0]
 
 
-    # word = Word.objects.all()[wordindex]
     wmap = {'username': username}
     wmap['total'] = str(len(dict))
     wmap['index'] = str(wordindex+1)
@@ -239,5 +240,7 @@ def getNextWord(request):
     wmap['demo_2_translate'] = word.demo_2_translate
     wmap['demo_3'] = word.demo_3
     wmap['demo_3_translate'] = word.demo_3_translate
-    print(wmap)
     return JsonResponse(wmap, safe=False)
+
+def statistic(request):
+    return render_to_response('statistic.html',{},context_instance=RequestContext(request))
