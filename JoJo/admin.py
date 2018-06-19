@@ -6,7 +6,7 @@ from .models import User,Word
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['username','password','nickname','wordbook','email','word_num_today','word_num_remember',
-                    'day_signup', 'word_total_remember', 'word_total_plan', 'record']
+                    'day_signup', 'word_total_remember', 'word_total_plan', 'record','last_signup']
 
 class WordAdmin(admin.ModelAdmin):
     list_display = ['wordname', 'group', 'soundmark','explanation','demo_1',

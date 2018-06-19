@@ -19,9 +19,11 @@ class User(models.Model):
     word_num_remember = models.IntegerField(default=0)          #已经记忆
     day_signup = models.IntegerField(default=0)                 #累计打卡
 
+    last_signup = models.CharField(max_length=20,default='',null=True,blank=True)
     word_total_remember = models.CharField(max_length=20000,default='',null=True,blank=True)
     word_total_plan = models.CharField(max_length=20000,default='',null=True,blank=True)
     record = models.CharField(max_length=20000,default='',null=True,blank=True)
+
 
 
 

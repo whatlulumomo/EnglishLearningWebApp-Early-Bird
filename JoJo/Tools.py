@@ -34,10 +34,13 @@ def getWordbyUser(username):
     return wordbook
 
 
-def getWordfromBookbyGroup(group):
+def getWordfromBookbyGroup(group,plan):
+    print(plan)
     wordsearch = Word.objects.filter(group=group)
     result = []
     for i in wordsearch:
+        if i.wordname in plan: # 正在学习的单词不予显示
+            continue
         result.append((i.wordname, i.explanation))
     return tuple(result)
 

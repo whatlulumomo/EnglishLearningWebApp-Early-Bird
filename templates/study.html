@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Early Bird</title>
 </head>
 <!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
 
@@ -38,8 +41,21 @@
                             </div>
                     </div>
 
-                    <li><a href="#" calss="menu-item">帮助</a></li>
-                    <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
+                   <li class="btn-group" style="margin-top: 3%">
+                         <button type="button" class="btn btn-default " style="border: transparent;color: rgba(112,112,112,0.6);">{{ nickname }}</button>
+                          <button type="button" class="btn btn-default dropdown-toggle"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                  style="border: transparent">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">帮助</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">退出</a></li>
+                          </ul>
+                    </li>
 
 {#                    <div>#}
 {#                        <img src="http://127.0.0.1:8000/static/img/portrait/1.png" width="5%" height="5%" />#}
@@ -113,7 +129,9 @@
                     </div>
 
                     <div><!--点击"拼写测试"以后会有这个框 -->
-                        <span class="word-spell hidden-sm hidden-xs"> <input type="text"> </span>
+                        <span class="word-spell hidden-sm hidden-xs"> <input id="word-spell" type="text"> </span>
+                        <img  id="cross" src="/static/img/cross.png"/>
+                        <img  id="tick" src="/static/img/tick.png"/>
                     </div>
 
 
@@ -167,32 +185,102 @@
     </div>
 
 <script>
+
      $(document).ready(function() {
          $('#input2').click(function () {
-             $('#word').toggle(300);
+             var status = getCookie("word");
+             if(status === "false"){
+                 $('#word').show(300);
+                 setCookie("word",true, 1);
+             }
+             else{
+                  $('#word').hide(300);
+                 setCookie("word",false, 1);
+             }
          });
      });
 
      $(document).ready(function() {
          $('#input3').click(function () {
              $('#soundmark').toggle(300);
+             var status = getCookie("soundmark");
+             if(status != null && status === "false"){
+                 setCookie("soundmark",true, 1);
+             }
+             else{
+                 setCookie("soundmark",false, 1);
+             }
          });
      });
 
      $(document).ready(function() {
          $('#input4').click(function () {
              $('.explanation').toggle(300);
+             var status = getCookie("explanation");
+             if(status != null && status === "false"){
+                 setCookie("explanation",true, 1);
+             }
+             else{
+                 setCookie("explanation",false, 1);
+             }
          });
      });
 
      $(document).ready(function() {
          $('#input5').click(function () {
-             $('.word-spell').toggle(300);
+             var status = getCookie("word-spell");
+
+             if(status != null && status === "false"){
+                 setCookie("word-spell",true, 1);
+                 $('.word-spell').show(300);
+             }
+             else{
+                 setCookie("word-spell",false, 1);
+                 $('.word-spell').hide(300);
+                 $("#cross").hide();
+                 $("#tick").hide();
+             }
          });
      });
 
+     {#初始化#}
      $(document).ready(function() {
-         $('.word-spell').hide();
+         $("#cross").hide();
+         $("#tick").hide();
+
+         if(getCookie("word") === "true"){
+             $('#word').show();
+         }
+         else{
+             $('#input2').prop("checked",true);
+             $('#word').hide();
+         }
+
+         if(getCookie("soundmark") === "true"){
+              $('#soundmark').show();
+         }
+         else{
+             $('#input3').prop("checked",true);
+             $('#soundmark').hide();
+         }
+
+         if(getCookie("explanation") === "true"){
+            $('.explanation').show();
+         }
+         else{
+             $('#input4').prop("checked",true);
+             $('.explanation').hide();
+         }
+
+
+         if(getCookie("word-spell") === "true"){
+             $('#input5').prop("checked",true);
+             $('.word-spell').show();
+         }
+         else{
+             $('#word-spell').hide();
+         }
+
      });
 
      $(document).ready(function() {
@@ -213,6 +301,56 @@
          });
      });
 
+
+    //设置cookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return null;
+    }
+
+     $(document).ready(function() {
+         $('#know').click(function (){
+             $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
+                 console.log(ret);
+                 window.location.reload(ret);
+            })
+         });
+         $('#notknow').click(function (){
+             $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
+                 console.log(ret);
+                 window.location.reload(ret);
+            })
+         });
+     });
+
+
+    $(document).ready(function(){
+        $('#word-spell').bind('input onchange', function() {
+            var wordinput = $('#word-spell').val();
+            var wordtext = $('#word').text();
+            if(wordinput ===  wordtext){
+                $("#cross").hide();
+                $("#tick").show(400);
+            }
+            else{
+                $("#cross").show(400);
+                $("#tick").hide();
+            }
+        });
+    });
 </script>
 
 </body>

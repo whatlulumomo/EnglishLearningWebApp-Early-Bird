@@ -7,6 +7,7 @@ from .models import User,Word
 from django.http import JsonResponse
 from .Tools import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import time
 
 # Create your views here.
 
@@ -86,10 +87,18 @@ def login(req):
 
 # 个人主页
 def profile(request):
-    json = {}
     username = request.COOKIES.get('username','')
-    json['username'] = username
     user = User.objects.filter(username__exact=username)[0]
+    today = time.strftime("%Y年%m月%d日")
+    lastday = user.last_signup
+    if lastday != today:
+        user.word_num_remember=0
+        user.day_signup += 1
+        user.last_signup = today
+        user.save()
+
+    json = {}
+    json['username'] = username
     json['nickname'] = user.nickname
     json['coin'] = user.coin
     json['level'] = user.level
@@ -115,9 +124,10 @@ def wordbook(request):
     json['word_num_remember'] = user.word_num_remember
     json['day_signup'] = user.day_signup
     json['target'] = user.wordbook
-    words = getWordfromBookbyGroup(json['target'])
-    paginator = Paginator(words, 10)  # Show 10 words per page
+    print("---", json['target'])
+    words = getWordfromBookbyGroup(json['target'],user.word_total_plan)
 
+    paginator = Paginator(words, 7)  # Show 10 words per page
     page = request.GET.get('page')
     try:
         words = paginator.page(page)
@@ -132,7 +142,15 @@ def wordbook(request):
 def test(request):
     username = request.COOKIES.get('username', '')
     wordbook = getwordsfortest(username)
-    return render_to_response('test.html',wordbook[0])
+    user = User.objects.filter(username__exact=username)[0]
+
+    if len(wordbook) == 0:
+        json = {'error':'NoWord'}
+        return render_to_response('test.html.html', json)
+
+    json = wordbook[0]
+    json['nickname'] = user.nickname
+    return render_to_response('test.html',json)
 
 
 #学习

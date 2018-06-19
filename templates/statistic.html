@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="initial-scale=scale,maximum-scale=scale,minimum-scale=scale,user-scalable=no"> <!-- dpr = 2-->
+    <meta name="viewport" content="initial-scale=0.5,maximum-scale=0.5,minimum-scale=0.5,user-scalable=no"> <!-- dpr = 3-->
+    <meta name="viewport" content="initial-scale=0.3333333333,maximum-scale=0.3333333333,minimum-scale=0.3333333333,user-scalable=no">
     <title>Early Bird</title>
 </head>
 <!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
@@ -37,8 +43,22 @@
                             </div>
                     </div>
 
-                    <li><a href="helpdocument.html" calss="menu-item">帮助</a></li>
-                    <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
+                    <li class="btn-group" style="margin-top: 3%">
+                         <button type="button" class="btn btn-default " style="border: transparent;color: rgba(112,112,112,0.6);">{{ nickname }}</button>
+                          <button type="button" class="btn btn-default dropdown-toggle"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                  style="border: transparent">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">帮助</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">退出</a></li>
+                          </ul>
+                    </li>
+
 
             </div>    
         </div>
@@ -52,7 +72,7 @@
 
             <h3 class="text-center" style="color:#999">您的单词报告已生成</h3>
 
-            <div style="height: 33%" id="1">
+            <div style="height: 33%" id="1" class="chart">
                 <div id="container" style="height: 90%;margin-top: 5%; margin-bottom: 5%"></div>
                 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
                 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
@@ -139,7 +159,7 @@
                 </script>
             </div>
 
-                <div style="height: 33%;margin-left:5%;margin-right: 5%;width: 90%;" id="2">
+                <div class="chart" style="height: 33%;margin-left:5%;margin-right: 5%;width: 90%;" id="2">
                    <div id="container2" style="height: 90%;margin-top: 5%; margin-bottom: 5%"></div>
                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
@@ -162,9 +182,12 @@
                     var dayTime = 3600 * 24 * 1000;
                     var data = [];
                     for (var time = date; time < end; time += dayTime) {
+                        if(Math.floor(Math.random()*100)%2 == 0){
+                            continue;
+                        }
                         data.push([
                             echarts.format.formatTime('yyyy-MM-dd', time),
-                            Math.floor(150)
+                            Math.floor(Math.random() * 200)/20
                         ]);
                     }
                     return data;
@@ -252,7 +275,7 @@
                             coordinateSystem: 'calendar',
                             data: data,
                             symbolSize: function (val) {
-                                return val[1]/20;
+                                return val[1];
                             },
                             itemStyle: {
                                 normal: {
@@ -267,7 +290,7 @@
                             calendarIndex: 1,
                             data: data,
                             symbolSize: function (val) {
-                                return val[1] / 20;
+                                return val[1];
                             },
                             itemStyle: {
                                 normal: {
@@ -284,7 +307,7 @@
                                 return b[1] - a[1];
                             }).slice(0, 12),
                             symbolSize: function (val) {
-                                return val[1] / 20;
+                                return val[1];
                             },
                             showEffectOn: 'render',
                             rippleEffect: {
@@ -308,7 +331,7 @@
                                 return b[1] - a[1];
                             }).slice(0, 12),
                             symbolSize: function (val) {
-                                return val[1] / 20;
+                                return val[1];
                             },
                             showEffectOn: 'render',
                             rippleEffect: {

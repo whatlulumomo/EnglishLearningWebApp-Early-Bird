@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Early Bird</title>
 </head>
 <!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
@@ -28,7 +31,8 @@
                 <li><a href="../wordbook" class="menu-item text-left">词本</a></li>
                 <li><a href="../statistic" class="menu-item text-left">统计</a></li>
                 <li><a href="../statistic" class="menu-item text-left">我的</a></li>
-            </div> 
+            </div>
+
 
             <div class="nav navbar-nav navbar-right nav-link hidden-xs">
                     <div class="navbar-form hidden-xs hidden-sm" role="search">
@@ -38,11 +42,24 @@
                             </div>
                     </div>
 
-                    <li><a href="helpdocument.html" calss="menu-item">帮助</a></li>
-                    <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
-{#                    <li><a href="#" calss="退出">退出</a></li>#}
+                    <li class="btn-group" style="margin-top: 3%">
+                         <button type="button" class="btn btn-default " style="border: transparent;color: rgba(112,112,112,0.6);">{{ nickname }}</button>
+                          <button type="button" class="btn btn-default dropdown-toggle"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                  style="border: transparent">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">帮助</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">退出</a></li>
+                          </ul>
+                    </li>
 
-            </div>    
+
+            </div>
         </div>
     </div>
     
@@ -99,8 +116,8 @@
                 </div>
 
                 <div class="btngroup text-center">
-                    <div> <a class="btn" href="../study/">测试新词</a></div><!-- 测试页面下的新词 -->
-                    <div> <a class="btn" href="test.html">复习旧词</a></div>
+                    <div> <a class="btn" href="../wordbook/">学习新词</a></div><!-- 测试页面下的新词 -->
+                    <div> <a class="btn" href="../test/">复习旧词</a></div>
                     <!-- 测试页面下的旧词测试 -->
                 </div>
 
