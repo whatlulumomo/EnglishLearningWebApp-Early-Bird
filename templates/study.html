@@ -25,7 +25,7 @@
 
             <div class="nav navbar-nav nav-link hidden-xs">
                 <div class="space"></div>
-                <li><a href=".." class="menu-item text-left">首页</a></li>
+                <li><a href="../study" class="menu-item text-left">背单词</a></li>
                 <li><a href="../test" class="menu-item text-left">测试</a></li>
                 <li><a href="../wordbook" class="menu-item text-left">词本</a></li>
                 <li><a href="../statistic" class="menu-item text-left">统计</a></li>
@@ -128,10 +128,14 @@
                         <span class="volume wordvolume">美 <span class="yinbiao"></span><a class="fa fa-volume-up"></a> {{ soundmark }}</span>
                     </div>
 
-                    <div><!--点击"拼写测试"以后会有这个框 -->
-                        <span class="word-spell hidden-sm hidden-xs"> <input id="word-spell" type="text"> </span>
-                        <img  id="cross" src="/static/img/cross.png"/>
-                        <img  id="tick" src="/static/img/tick.png"/>
+
+                    <div>
+{#                        <span class="word-spell hidden-sm hidden-xs"> <input id="word-spell" type="text" > </span>#}
+                         <span id="testword"  class="word-spell hidden-sm hidden-xs">  </span>
+
+                        <span><!--点击"拼写测试"以后会有这个框 -->
+                             <img  id="judge"/>
+                        </span>
                     </div>
 
 
@@ -229,24 +233,24 @@
      $(document).ready(function() {
          $('#input5').click(function () {
              var status = getCookie("word-spell");
-
+             console.log(status);
              if(status != null && status === "false"){
                  setCookie("word-spell",true, 1);
                  $('.word-spell').show(300);
+                 window.location.reload();
              }
-             else{
+             else if(status == null){}
+             else if(status != null && status === "true"){
                  setCookie("word-spell",false, 1);
                  $('.word-spell').hide(300);
-                 $("#cross").hide();
-                 $("#tick").hide();
+                 $('#judge').hide();
              }
          });
      });
 
      {#初始化#}
      $(document).ready(function() {
-         $("#cross").hide();
-         $("#tick").hide();
+
 
          if(getCookie("word") === "true"){
              $('#word').show();
@@ -275,29 +279,24 @@
 
          if(getCookie("word-spell") === "true"){
              $('#input5').prop("checked",true);
-             $('.word-spell').show();
+             $('#testword').html("<input id=\"word-spell\" type=\"text\" >");
          }
          else{
-             $('#word-spell').hide();
+             $('#word-spell').remove();
          }
 
      });
 
+
      $(document).ready(function() {
          $('.right-btn').click(function () {
-             $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
-                 console.log(ret);
-                 window.location.reload(ret);
-            })
+             nextword();
          });
      });
 
      $(document).ready(function() {
          $('.lft-btn').click(function () {
-             console.log(1);
-            $.getJSON('/getNextWord/', {cmd:"LAST"}, function (ret) {
-                 window.location.reload(ret)
-            })
+             lastword();
          });
      });
 
@@ -321,20 +320,41 @@
         return null;
     }
 
+
+    function nextword(){
+        $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
+                 console.log(ret);
+                 window.location.reload(ret);
+            });
+    }
+
+    function lastword(){
+        $.getJSON('/getNextWord/', {cmd:"LAST"}, function (ret) {
+                 console.log(ret);
+                 window.location.reload(ret);
+            });
+    }
+
      $(document).ready(function() {
          $('#know').click(function (){
-             $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
-                 console.log(ret);
-                 window.location.reload(ret);
-            })
+             nextword();
          });
          $('#notknow').click(function (){
-             $.getJSON('/getNextWord/', {cmd:"NEXT"}, function (ret) {
-                 console.log(ret);
-                 window.location.reload(ret);
-            })
+             nextword();
          });
      });
+
+
+    {#$(document).keypress(function(e) {#}
+    {#    document.onkeydown = function(e) {#}
+    {#        var keyCode = e.keyCode || e.which || e.charCode;#}
+    {#        var ctrlKey = e.ctrlKey || e.metaKey;#}
+    {#        if (ctrlKey && keyCode == 83) {#}
+    {#            alert('save');#}
+    {#        }#}
+    {#        e.preventDefault();#}
+    {#        return false;#}
+    {#    }#}
 
 
     $(document).ready(function(){
@@ -342,15 +362,38 @@
             var wordinput = $('#word-spell').val();
             var wordtext = $('#word').text();
             if(wordinput ===  wordtext){
-                $("#cross").hide();
-                $("#tick").show(400);
+                $("#judge").attr("src", "/static/img/tick.png");
             }
             else{
-                $("#cross").show(400);
-                $("#tick").hide();
+                $("#judge").attr("src", "/static/img/cross.png");
             }
         });
     });
+
+
+    {#播放声音#}
+    $(document).ready(function() {
+        playsound();
+         $('.wordvolume').click(function () {
+             playsound();
+         });
+    });
+
+    function playsound() {
+        var audioElementHovertree = document.createElement('audio');
+         var word = $('#word').text();
+         audioElementHovertree.setAttribute('src', 'http://dict.youdao.com/dictvoice?audio='+word);
+
+        $.get();
+
+        audioElementHovertree.addEventListener("load", function() {
+            audioElementHovertree.play();
+        }, true);
+
+        audioElementHovertree.play();
+    }
+
+
 </script>
 
 </body>

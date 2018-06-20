@@ -1,6 +1,8 @@
 from .models import User,Word
+from django.http import JsonResponse
+
 def getwordsfortest(username):
-    words = User.objects.get_or_create(username=username)[0].word_total_remember
+    words = User.objects.get_or_create(username=username)[0].word_total_plan
     wordlist = words.split(";")
     book = []
     for node in wordlist[:-1]:
@@ -9,7 +11,7 @@ def getwordsfortest(username):
         forget = int(nodemap[1])
         total = int(nodemap[2])
         wordsearch = Word.objects.get_or_create(wordname=word)[0]
-        json = {'wordname': wordsearch.wordname}
+        json = {'word': wordsearch.wordname}
         json['forget'] = forget
         json['total'] = total
         json['group'] = wordsearch.group
@@ -23,6 +25,8 @@ def getwordsfortest(username):
         json['demo_3_translate'] = wordsearch.demo_3_translate
         book.append(json)
     return book
+
+
 
 def getWordbyUser(username):
     words = User.objects.get_or_create(username=username)[0].word_total_plan
@@ -77,5 +81,33 @@ def chooseWords(username, wordname, status):
     # print(result)
 
 
+def getWords(request):
+    username = request.COOKIES.get('username', '')
+    words = User.objects.get_or_create(username="u1")[0].word_total_plan
+    wordlist = words.split(";")
+    book = {}
+    count = 0
+    for node in wordlist[:-1]:
+        nodemap = node.split(",")
+        word = nodemap[0]
+        forget = int(nodemap[1])
+        total = int(nodemap[2])
+        wordsearch = Word.objects.get_or_create(wordname=word)[0]
+        json = {'word': wordsearch.wordname}
+        json['forget'] = forget
+        json['total'] = total
+        json['group'] = wordsearch.group
+        json['soundmark'] = wordsearch.soundmark
+        json['explanation'] = wordsearch.explanation.split(";")
+        json['demo_1'] = wordsearch.demo_1
+        json['demo_1_translate'] = wordsearch.demo_1_translate
+        json['demo_2'] = wordsearch.demo_2
+        json['demo_2_translate'] = wordsearch.demo_2_translate
+        json['demo_3'] = wordsearch.demo_3
+        json['demo_3_translate'] = wordsearch.demo_3_translate
+        book[count] = json
+        count += 1
+    book['count'] = count
+    return JsonResponse(book, safe=False)
 
 

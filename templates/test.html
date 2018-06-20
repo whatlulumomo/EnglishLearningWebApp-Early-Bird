@@ -23,7 +23,8 @@
 
             <div class="nav navbar-nav nav-link hidden-xs">
                 <div class="space"></div>
-                <li><a href=".." class="menu-item text-left">首页</a></li>
+
+                <li><a href="../study" class="menu-item text-left">背单词</a></li>
                 <li><a href="../test" class="menu-item text-left">测试</a></li>
                 <li><a href="../wordbook" class="menu-item text-left">词本</a></li>
                 <li><a href="../statistic" class="menu-item text-left">统计</a></li>
@@ -78,10 +79,10 @@
                     <div class="text-left mem-menu">
                         <div class="img-circle btn-group hidden-sm hidden-xs"><i class="fa fa-home"></i></div>
                         <div class="img-circle btn-group hidden-sm hidden-xs"><i class="fa fayin">英</i></div>
-                        <div class="test-item btn-group test-mark1"><span class="fa fa-circle" style="color:#FE6158"></span>不认识:8</div>
-                        <div class="test-item btn-group"> <span class="fa fa-circle" style="color:#29CE42"></span>认识:12</div>
-                        <div class="test-item btn-group  hidden-xs"> <span class="fa fa-circle" style="color:#50DDED"></span>已测:20</div>
-                        <div class="test-item btn-group"> <span class="fa fa-circle" style="color:#FFC12F"></span>剩余:20</div>
+                        <div class="test-item btn-group test-mark1"><span class="fa fa-circle" style="color:#FE6158"></span>不认识:<span id="notknowcount">8</span></div>
+                        <div class="test-item btn-group"> <span class="fa fa-circle" style="color:#29CE42"></span>认识:<span id="knowcount">12</span></div>
+                        <div class="test-item btn-group  hidden-xs"> <span class="fa fa-circle" style="color:#50DDED"></span>已测:<span id="havetest">20</span></div>
+                        <div class="test-item btn-group"> <span class="fa fa-circle" style="color:#FFC12F"></span>剩余:<span id="leftcount">20</span></div>
                         <span class="test-progress hidden-sm hidden-xs">
                             <span class="known text-center">8</span>
                             <span class="unknown text-center">12</span>
@@ -95,26 +96,25 @@
                 {% if error != 'NoWord' %}
 
                     <div class="word-title text-center">
-                        <span class="word">{{ wordname }}</span>
-                        <span class="volume hidden-sm hidden-xs">英<span class="yinbiao">{{ soundmark }}</span><a class="fa fa-volume-up"></a></span>
-                        <span class="volume  hidden-sm hidden-xs">美<span class="yinbiao">{{ soundmark }}</span><a class="fa fa-volume-up"></a></span>
+                        <span id="word" class="word">{{ word }}</span>
+                        <div>
+                            <span class="volume hidden-sm hidden-xs">英<span class="yinbiao soundmark"></span><a class="wordsound fa fa-volume-up"></a></span>
+                            <span class="volume  hidden-sm hidden-xs">美<span class="yinbiao soundmark"></span><a class="wordsound fa fa-volume-up"></a></span>
+                        </div>
                     </div>
-
 
                     <div class="word-content text-center">
                         <div id="meaning">
                             <div class="item">
                                 <div class="item translatedemo explanation">
-                                {% for i in explanation %}
-                                    <span class="mean">{{ i }}</span><br>
-                                {% endfor %}
+                                    <span class="mean" id="explanation"></span><br>
                                 </div>
                             </div>
 
                             <div class="test-select">
                                 <div class="item">
-                                    <div class="sen exampledemo">{{ demo_1 }}</div>
-                                    <div class="sen translatedemo">{{ demo_1_translate }}</div>
+                                    <div class="sen exampledemo" id="demo_1">{{ demo_1 }}</div>
+                                    <div class="sen translatedemo" id="demo_1_translate">{{ demo_1_translate }}</div>
                                 </div>
                             </div>
                         </div>
@@ -144,19 +144,201 @@
     </div>
 
 <script>
+    function playsound(){
+        var audioElementHovertree = document.createElement('audio');
+         var word = $('#word').text();
+         audioElementHovertree.setAttribute('src', 'http://dict.youdao.com/dictvoice?audio='+word);
+
+        $.get();
+
+        audioElementHovertree.addEventListener("load", function() {
+            audioElementHovertree.play();
+        }, true);
+
+        audioElementHovertree.play();
+    }
+
+    function isInArray(value,arr){
+        var index = $.inArray(value,arr);
+        if(index >= 0){
+            return true;
+        }
+        return false;
+    }
+
     $(document).ready(function() {
+         $('#meaning').hide();
          $('#know').click(function () {
+             $('#know').blur();
              $('#meaning').show();
-             console.log("A");
+             var wordtext = $('#word').text();
+
+             if (isInArray(wordtext, know) === false) {
+                 if (isInArray(wordtext, notknow) === true) {
+                     notknowcount--;
+                     notknow.splice($.inArray(wordtext, notknow), 1);
+                 }
+                 know.push(wordtext);
+                 knowacount += 1;
+             }
+
+             $("#havetest").text(knowacount+notknowcount);
+             $("#knowcount").text(knowacount);
+             $("#notknowcount").text(notknowcount);
+             $("#leftcount").text(total-knowacount-notknowcount);
+         });
+
+
+         $('#notknow').click(function () {
+             $('#notknow').blur();
+             $('#meaning').show();
+
+             var wordtext = $('#word').text();
+             if(isInArray(wordtext, notknow) === false){
+                 if(isInArray(wordtext,know) === true) {
+                     knowacount--;
+                     know.splice($.inArray(wordtext,know),1);
+                 }
+                 notknow.push(wordtext);
+                 notknowcount += 1;
+                 console.log(notknow);
+             }
+
+             $("#havetest").text(knowacount+notknowcount);
+             $("#knowcount").text(knowacount);
+             $("#notknowcount").text(notknowcount);
+             $("#leftcount").text(total-knowacount-notknowcount);
+
+         });
+
+
+
+         {#播放声音#}
+         $('.wordsound').click(function () {
+             playsound();
          });
      });
 
-    window.onload=function(){
-        $('#meaning').hide();
-    }
 
+     $(document).ready(function() {
+         $('.right-btn').click(function () {
+             index = (index+1)%total;
+             setCookie("index",index,1);
+             $("#word").text(wordTestBook[index].word);
+             $(".soundmark").text(wordTestBook[index].soundmark);
+             $("#explanation").text(wordTestBook[index].explanation);
+             $("#demo_1").text(wordTestBook[index].demo_1);
+             $("#demo_1_translate").text(wordTestBook[index].demo_1_translate);
+
+             playsound();
+             $('#meaning').hide();
+         });
+         $('.lft-btn').click(function () {
+             index = (index-1+total)%total;
+             setCookie("index",index,1);
+             $("#word").text(wordTestBook[index].word);
+             $(".soundmark").text(wordTestBook[index].soundmark);
+             $("#explanation").text(wordTestBook[index].explanation);
+             $("#demo_1").text(wordTestBook[index].demo_1);
+             $("#demo_1_translate").text(wordTestBook[index].demo_1_translate);
+
+             playsound();
+             $('#meaning').hide();
+         });
+     });
+
+     var index;
+     var total;
+     var know = new Array();
+     var notknow = new Array();
+     var knowacount = 0;
+     var notknowcount = 0;
+     $(document).ready(function () {
+         if(getCookie("index") == null){
+             index  = 0;
+             setCookie("index",index,1);
+         }
+         else{
+             index = Number(getCookie("index"));
+         }
+         reqeustWords();
+     });
+
+
+
+</script>
+
+
+<script>
+        basicUrl="http://127.0.0.1:8000/";
+        var wordTestBook;
+        function reqeustWords() {
+            new Promise(function (resolve){
+               $.ajax(
+                   {
+                       method: "GET",
+                       url: basicUrl+"api/getWords/",
+                       data: {
+                       },
+                       success: function (data) {
+                           resolve(data);
+                       }
+
+                   }
+               )
+            }).then(
+                function (data) {
+                    if(data != null)
+                    {
+                        wordTestBook = data;
+                        total = wordTestBook['count'];
+                        console.log(wordTestBook[index]);
+                        console.log(wordTestBook[index].word);
+                        $("#word").text(wordTestBook[index].word);
+                        $(".soundmark").text(wordTestBook[index].soundmark);
+                        $("#explanation").text(wordTestBook[index].explanation);
+                        $("#demo_1").text(wordTestBook[index].demo_1);
+                        $("#demo_1_translate").text(wordTestBook[index].demo_1_translate);
+
+
+                        $("#havetest").text(0);
+                        $("#knowcount").text(0);
+                        $("#notknowcount").text(0);
+                        $("#leftcount").text(total);
+                        playsound();
+                    }
+                    else{
+                        console.log("fail");
+                    }
+
+                }
+
+            );
+        }
+</script>
+
+<script>
+      //设置cookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return null;
+    }
 </script>
 
 <body>
     
 </body>
+</html>

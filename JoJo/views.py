@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from .Tools import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import time
+import random
 
 # Create your views here.
 
@@ -141,15 +142,42 @@ def wordbook(request):
 
 def test(request):
     username = request.COOKIES.get('username', '')
+
     wordbook = getwordsfortest(username)
-    user = User.objects.filter(username__exact=username)[0]
 
     if len(wordbook) == 0:
         json = {'error':'NoWord'}
-        return render_to_response('test.html.html', json)
+        return render_to_response('test.html', json)
 
-    json = wordbook[0]
+    testid = username + "test"
+    if request.session.get(testid) == None:
+        request.session[testid] = 0
+        wordindex = 0
+    else:
+        wordindex = request.session[testid]
+        request.session[testid] = (request.session[testid]+0)%len(wordbook)
+
+    wordname = wordbook[wordindex]['word']
+
+
+    user = User.objects.filter(username__exact=username)[0]
+    word = Word.objects.filter(wordname=wordname)[0]
+
+    json = {'username': username}
+    json['word'] = word.wordname
+    json['group'] = word.group
+    json['soundmark'] = word.soundmark
+    json['explanation'] = word.explanation.split(";")
+    json['demo_1'] = word.demo_1
+    json['demo_1_translate'] = word.demo_1_translate
+    json['demo_2'] = word.demo_2
+    json['demo_2_translate'] = word.demo_2_translate
+    json['demo_3'] = word.demo_3
+    json['demo_3_translate'] = word.demo_3_translate
     json['nickname'] = user.nickname
+    json['index'] = wordindex + 1
+    json['total'] = len(wordbook)
+
     return render_to_response('test.html',json)
 
 
@@ -224,7 +252,6 @@ def addword(request):
 
 
 def getNextWord(request):
-    print("AAAAAAA")
     username = request.COOKIES.get('username', '')
     dict = getWordbyUser(username)
 

@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^addword/$', 'JoJo.views.addword', name='addword'),
     url(r'^getNextWord/$', 'JoJo.views.getNextWord', name='getNextWord'),
     url(r'^statistic/$', 'JoJo.views.statistic', name='statistic'),
-
+    url(r'^api/getWords/$', 'JoJo.Tools.getWords', name='getWords'),
+    url(r'^api/getName/$', 'JoJo.Tools.getUserName', name='getName'),
 ]
