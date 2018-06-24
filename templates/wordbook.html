@@ -14,43 +14,55 @@
 <!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
 
 <body>
-    <div class="navbar navbar-transparent">
+    <div class="navbar navbar-transparent test-nav">
         <div class="container">
             <a href=".."  class="navbar-brand"></a>
 
             <label for="toggle-checkbox" class="menulable visible-xs-inline-block">MENU</label>
-            <input type="checkbox" class="hidden" id="toggle-checkbox"> 
+            <input type="checkbox" class="hidden" id="toggle-checkbox">
 
             <div class="nav navbar-nav nav-link hidden-xs">
                 <div class="space"></div>
+
                 <li><a href="../study" class="menu-item text-left">背单词</a></li>
                 <li><a href="../test" class="menu-item text-left">测试</a></li>
                 <li><a href="../wordbook" class="menu-item text-left">词本</a></li>
                 <li><a href="../statistic" class="menu-item text-left">统计</a></li>
                 <li><a href="../profile" class="menu-item text-left">我的</a></li>
-            </div> 
+            </div>
 
             <div class="nav navbar-nav navbar-right nav-link hidden-xs">
-                    <div class="navbar-form hidden-xs hidden-sm" role="search">
-                            <div class="input-group">
-                            <input type="text" class="form-control"><span
-                            class="input-group-addon btn btn-primary"><i class="fa fa-search"></i></span>
-                            </div>
-                    </div>
+                <div class="navbar-form hidden-xs hidden-sm" role="search">
+                        <div class="input-group">
+                        <input type="text" class="form-control"><span
+                        class="input-group-addon btn btn-primary"><i class="fa fa-search"></i></span>
+                        </div>
+                </div>
+                <li class="btn-group" style="margin-top: 3%">
+                         <button type="button" class="btn btn-default " style="border: transparent;color: rgba(112,112,112,0.6);">{{ nickname }}</button>
+                          <button type="button" class="btn btn-default dropdown-toggle"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                  style="border: transparent">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">帮助</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/">退出</a></li>
+                          </ul>
+                </li>
 
-                    <li><a href="#" calss="menu-item">帮助</a></li>
-                    <li><a href="#" calss="menu-item">{{ nickname }}</a></li>
-{#                    <li><a href="#" calss="退出">退出</a></li>#}
-
-            </div>    
+            </div>
         </div>
     </div>
-    
 
 
 
     <div class="studybox"><!-- 页面状态3 -->
         <div class="pannel container col-md-10 col-md-offset-1"><!-- 开始背单词前的学习计划界面 -->
+
             <div class="col-md-4 user-sidebar hidden-sm hidden-xs">
                 <div class="mainbutton">
                     <div class="img-circle btn-group"><i class="fa fa-home"></i></div><!-- 终端单词记忆回到学习计划界面 -->

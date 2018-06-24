@@ -509,7 +509,7 @@ abbr[title]{
 /*sidebar button*/
 .studybox{
     width:100%;
-    height:700px;
+    height:1000px;
     background-image: url(../img/card-background.png);
     background-size: cover;
 }

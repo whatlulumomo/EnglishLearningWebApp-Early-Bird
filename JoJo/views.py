@@ -110,6 +110,14 @@ def profile(request):
     json['day_signup'] = user.day_signup
     return render_to_response('profile.html', json)
 
+def wordclass(request):
+    username = request.COOKIES.get('username', '')
+    user = User.objects.filter(username__exact=username)[0]
+    json = {}
+    json['username'] = username
+    json['nickname'] = user.nickname
+    return render_to_response('book.html', json)
+
 
 # 选词
 def wordbook(request):
