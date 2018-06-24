@@ -31,5 +31,8 @@ urlpatterns = [
     url(r'^getNextWord/$', 'JoJo.views.getNextWord', name='getNextWord'),
     url(r'^statistic/$', 'JoJo.views.statistic', name='statistic'),
     url(r'^api/getWords/$', 'JoJo.Tools.getWords', name='getWords'),
-    url(r'^api/getName/$', 'JoJo.Tools.getUserName', name='getName'),
+    # url(r'^api/getName/$', 'JoJo.Tools.getUserName', name='getName'),
+    url(r'^api/chooseword/$', 'JoJo.Tools.chooseword', name='chooseword'),
+    url(r'^api/cancelword/$', 'JoJo.Tools.cancelword', name='cancelword'),
+    url(r'^getid/$', 'JoJo.views.getid', name='getid'),
 ]

@@ -74,6 +74,8 @@ def login(req):
             #对比提交的数据与数据库中的数据
             user = User.objects.filter(username__exact = username,password__exact = password)
             if user:
+                req.session["id"] = username
+                # print("----",req.session.get("id"))
                 #比较成功，跳转index
                 response = HttpResponseRedirect('/profile/')
                 #将username写入浏览器cookie，失效时间为3600
@@ -297,3 +299,8 @@ def getNextWord(request):
 
 def statistic(request):
     return render_to_response('statistic.html',{},context_instance=RequestContext(request))
+
+
+def getid(request):
+    username = request.COOKIES.get('username', '')
+    return JsonResponse({"id":username}, safe=False)

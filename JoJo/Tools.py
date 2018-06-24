@@ -42,10 +42,13 @@ def getWordfromBookbyGroup(group,plan):
     print(plan)
     wordsearch = Word.objects.filter(group=group)
     result = []
+    count = 0
     for i in wordsearch:
+        count += 1
         if i.wordname in plan: # 正在学习的单词不予显示
-            continue
-        result.append((i.wordname, i.explanation))
+            result.append((i.wordname, i.explanation, "checkbox-10-" + str(count), 1) )
+        else:
+            result.append((i.wordname, i.explanation, "checkbox-10-"+str(count), 0) )
     return tuple(result)
 
 
@@ -109,5 +112,45 @@ def getWords(request):
         count += 1
     book['count'] = count
     return JsonResponse(book, safe=False)
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def cancelword(request):
+    if request.method == "POST":
+        username =  request.POST.get("id", "")
+        wordname =  request.POST.get("wordname", "")
+        print("cancel",username,wordname)
+
+        user = User.objects.filter(username__exact=username)[0]
+        userdict = user.word_total_plan.split(";")
+        result = ""
+        for i in userdict[:-1]:
+            if wordname not in i:
+                result += i+";"
+
+        print(result)
+        user.word_total_plan = result;
+        user.save()
+
+        return JsonResponse({"success":0}, safe=False)
+    return JsonResponse({"success": 1}, safe=False)
+
+
+@csrf_exempt
+def chooseword(request):
+    if request.method == "POST":
+        username =  request.POST.get("id", "")
+        wordname =  request.POST.get("wordname", "")
+
+        user = User.objects.filter(username__exact=username)[0]
+        userdict = user.word_total_plan
+        userdict += wordname+",0,0;"
+        user.word_total_plan = userdict;
+        print(userdict)
+        user.save()
+        return JsonResponse({"success":0}, safe=False)
+    return JsonResponse({"success": 1}, safe=False)
+
 
 
