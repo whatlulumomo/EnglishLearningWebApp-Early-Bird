@@ -112,6 +112,19 @@ def profile(request):
     json['day_signup'] = user.day_signup
     return render_to_response('profile.html', json)
 
+
+def set(request):
+    username = request.COOKIES.get('username','')
+    user = User.objects.filter(username__exact=username)[0]
+    json = {}
+    json['username'] = username
+    json['nickname'] = user.nickname
+    json['word_num_today'] = user.word_num_today
+    json['email'] = user.email
+    json['target'] = user.target
+
+    return render_to_response('set.html', json)
+
 def wordclass(request):
     username = request.COOKIES.get('username', '')
     user = User.objects.filter(username__exact=username)[0]

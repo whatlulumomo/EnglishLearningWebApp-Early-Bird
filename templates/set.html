@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Early Bird</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: auto;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            right: 0;
+            margin-right: 8.33333333%;
+            background-color: white;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            border-left: 1px solid #eee;
+            border-top: 1px solid #eee;
+
+        }
+        h3{
+            color: #555;
+            padding-bottom: 2%;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #555;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #4657D9;
+            background: #eeeeee;
+        }
+
+        .sidenav a:focus {
+            color: #4657D9;
+            background: #eeeeee;
+        }
+
+        .form-control{
+            width: 30%;
+
+        }
+
+        .forminfo{
+            margin-top: 5%;
+            margin-left: 10%;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4%;
+        }
+
+
+
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
+
+    </style>
+</head>
+<!-- 这部分的功能实现参照了一个网站 http://www.danci88.com/  -->
+
+<body>
+    <div class="navbar navbar-transparent">
+        <div class="container">
+            <a href=".."  class="navbar-brand"></a>
+
+            <label for="toggle-checkbox" class="menulable visible-xs-inline-block">MENU</label>
+            <input type="checkbox" class="hidden" id="toggle-checkbox"> 
+
+            <div class="nav navbar-nav nav-link hidden-xs">
+                <div class="space"></div>
+                <li><a href="../study" class="menu-item text-left">背单词</a></li>
+{#                <li><a href="profile.html" class="menu-item text-left">单词</a></li>#}
+                <li><a href="../test" class="menu-item text-left">测试</a></li>
+                <li><a href="../wordbook" class="menu-item text-left">词本</a></li>
+                <li><a href="../statistic" class="menu-item text-left">统计</a></li>
+                <li><a href="../profile" class="menu-item text-left">我的</a></li>
+            </div>
+
+
+            <div class="nav navbar-nav navbar-right nav-link hidden-xs">
+                    <div class="navbar-form hidden-xs hidden-sm" role="search">
+                            <div class="input-group">
+                            <input type="text" class="form-control"><span
+                            class="input-group-addon btn btn-primary"><i class="fa fa-search"></i></span>
+                            </div>
+                    </div>
+
+                    <li class="btn-group" style="margin-top: 3%">
+                         <button type="button" class="btn btn-default " style="border: transparent;color: rgba(112,112,112,0.6);">{{ nickname }}</button>
+                          <button type="button" class="btn btn-default dropdown-toggle"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                  style="border: transparent">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">帮助</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/">退出</a></li>
+                          </ul>
+                    </li>
+
+
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="mySidenav" class="sidenav">
+        <a id="mov0" href="#">账号设置</a>
+        <a id="mov1" href="#">安全设置</a>
+        <a id="mov2" href="#">背单词设置</a>
+    </div>
+
+    <div class="studybox" style="border-top: 1px solid #eee;background: #eeeeee;height: 1500px";><!-- 页面状态3 -->
+        <div class="pannel container col-md-10 col-md-offset-1" style="box-shadow: 0px 0px 0px rgba(0,0,0,0.16);
+        margin-top: 0px;border-radius:0px;height: 100%">
+
+        <div id="info0" class="forminfo" >
+            <h3>账号设置</h3>
+            <div class="form-group">
+                <label class="form-label">账号</label>
+                <input type="text" class="form-control" readonly="readonly" value={{ username }}>
+            </div>
+            <div class="form-group">
+                <label class="form-label">昵称</label>
+                <input type="text" class="form-control" value={{ nickname }} >
+            </div>
+            <div class="form-group">
+                <label class="form-label">邮箱</label>
+                <input type="text" class="form-control"  value={{ email }}>
+            </div>
+            <div class="form-group">
+                <label class="form-label">已经掌握单词</label>
+                <input type="text" class="form-control" readonly="readonly" value={{ total }}>
+            </div>
+
+        </div>
+
+        <div id="info1" class="forminfo" >
+            <h3>安全设置</h3>
+            <div class="form-group">
+                <label class="form-label">原密码</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label">新密码</label>
+                <input type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label class="form-label">重复新密码</label>
+                <input type="text" class="form-control" >
+            </div>
+        </div>
+
+        <div id="info2" class="forminfo" >
+            <h3>背单词设置</h3>
+            <div class="form-group">
+                <label class="form-label">考试目标</label>
+                <input type="text" class="form-control" value={{ target }}>
+            </div>
+            <div class="form-group">
+                <label class="form-label">每日单词</label>
+                <input type="text" class="form-control" value={{ word_num_today }}>
+            </div>
+        </div>
+
+
+
+        </div>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        getid();
+    });
+    function getid() {
+        var basicUrl="http://127.0.0.1:8000/";
+        new Promise(function (resolve){
+           $.ajax(
+               {
+                   method: "GET",
+                   url: basicUrl+"getid/",
+                   data: {
+                   },
+                   success: function (data) {
+                        resolve(data);
+                       console.log(data.id);
+                   }
+
+               }
+           )
+        }).then(
+            function (data) {
+                var id =  data.id;
+                setCookie("id",id,1);
+            }
+        );
+    }
+           //设置cookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return null;
+    }
+
+</script>
+   <script>
+        $(document).ready(function (){
+            $("#mov0").click(function (){
+                $('html, body').animate({
+                    scrollTop: $("#info0").offset().top
+                }, 500);
+            });
+            $("#mov1").click(function (){
+                $('html, body').animate({
+                    scrollTop: $("#info1").offset().top
+                }, 500);
+            });
+            $("#mov2").click(function (){
+                $('html, body').animate({
+                    scrollTop: $("#info2").offset().top
+                }, 500);
+            });
+        });
+    </script>
+</html>
+
+    
+    
