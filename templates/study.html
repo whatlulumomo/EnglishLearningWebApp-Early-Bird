@@ -126,9 +126,8 @@
 
 
                     <div>
-{#                        <span class="word-spell hidden-sm hidden-xs"> <input id="word-spell" type="text" > </span>#}
-                         <span id="testword"  class="word-spell hidden-sm hidden-xs">  </span>
-
+                        <span class="word-spell hidden-sm hidden-xs"> <input id="word-spell" type="text" > </span>
+{#                         <span id="testword"  class="word-spell hidden-sm hidden-xs">  </span>#}
                         <span><!--点击"拼写测试"以后会有这个框 -->
                              <img  id="judge"/>
                         </span>
@@ -272,15 +271,6 @@
              $('.explanation').hide();
          }
 
-
-         if(getCookie("word-spell") === "true"){
-             $('#input5').prop("checked",true);
-             $('#testword').html("<input id=\"word-spell\" type=\"text\" >");
-         }
-         else{
-             $('#word-spell').remove();
-         }
-
      });
 
 
@@ -377,15 +367,10 @@
 
     function playsound() {
         var audioElementHovertree = document.createElement('audio');
-         var word = $('#word').text();
-         audioElementHovertree.setAttribute('src', 'http://dict.youdao.com/dictvoice?audio='+word);
-
+        var word = $('#word').text();
+        audioElementHovertree.setAttribute('src', 'http://dict.youdao.com/dictvoice?audio='+word);
         $.get();
-
-        audioElementHovertree.addEventListener("load", function() {
-            audioElementHovertree.play();
-        }, true);
-
+        audioElementHovertree.addEventListener("load", function() {audioElementHovertree.play();}, true);
         audioElementHovertree.play();
     }
 

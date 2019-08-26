@@ -84,9 +84,9 @@
                         <div class="test-item btn-group  hidden-xs"> <span class="fa fa-circle" style="color:#50DDED"></span>已测:<span id="havetest">20</span></div>
                         <div class="test-item btn-group"> <span class="fa fa-circle" style="color:#FFC12F"></span>剩余:<span id="leftcount">20</span></div>
                         <span class="test-progress hidden-sm hidden-xs">
-                            <span class="known text-center">8</span>
-                            <span class="unknown text-center">12</span>
-                            <span class="pretest text-center">20</span>
+                            <span id="barhaveknow" class="known text-center">0</span>
+                            <span id="barnotknow" class="unknown text-center">0</span>
+                            <span id="barrest" class="pretest text-center">{{ total }}</span>
                         </span>
 
                     </div>
@@ -184,8 +184,12 @@
 
              $("#havetest").text(knowacount+notknowcount);
              $("#knowcount").text(knowacount);
+              $("#barhaveknow").text(knowacount);
              $("#notknowcount").text(notknowcount);
+             $("#barnotknow").text(notknowcount);
              $("#leftcount").text(total-knowacount-notknowcount);
+             $("#barrest").text(total-knowacount-notknowcount);
+
          });
 
 
@@ -206,8 +210,11 @@
 
              $("#havetest").text(knowacount+notknowcount);
              $("#knowcount").text(knowacount);
+              $("#barhaveknow").text(knowacount);
              $("#notknowcount").text(notknowcount);
+             $("#barnotknow").text(notknowcount);
              $("#leftcount").text(total-knowacount-notknowcount);
+             $("#barrest").text(total-knowacount-notknowcount);
 
          });
 

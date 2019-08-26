@@ -68,12 +68,13 @@
 
 
     <div class="studybox"><!-- 页面状态3 -->
-        <div class="pannel container col-md-10 col-md-offset-1" style="height: 300%"><!-- 开始背单词前的学习计划界面 -->
+        <div class="pannel container col-md-10 col-md-offset-1" style="height: 1800px"><!-- 开始背单词前的学习计划界面 -->
 
             <h3 class="text-center" style="color:#999">您的单词报告已生成</h3>
 
-            <div style="height: 33%" id="1" class="chart">
-                <div id="container" style="height: 90%;margin-top: 5%; margin-bottom: 5%"></div>
+
+            <div style="height: 600px" id="1" class="chart">
+                <div id="container" style="height:500px; width: 90%;margin: 5%;"></div>
                 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
                 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
                 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
@@ -126,14 +127,14 @@
                                 type: 'value',
                                 name: '已经掌握',
                                 min: 0,
-                                max: 2000,
+                                max: 1000,
                                 interval: 200
                             },
                             {
                                 type: 'value',
                                 name: '总计划量',
                                 min: 0,
-                                max: 2000,
+                                max: 1000,
                                 interval: 200
                             }
                         ],
@@ -159,8 +160,9 @@
                 </script>
             </div>
 
-                <div class="chart" style="height: 33%;margin-left:5%;margin-right: 5%;width: 90%;" id="2">
-                   <div id="container2" style="height: 90%;margin-top: 5%; margin-bottom: 5%"></div>
+
+            <div class="chart" style="height: 600px;margin-left:5%;margin-right: 5%;width: 90%;" id="2">
+                   <div id="container2" style="height: 500px;margin:5%;width: 90%"></div>
                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
@@ -354,9 +356,41 @@
                     myChart.setOption(option, true);
                 }
                        </script>
+
+            </div>
+
+            <div style="height: 600px" id="1" class="chart">
+                <h2 class="text-center">不认识单词排行榜</h2>
+                <div id="container" style="height:500px; width: 40%;margin-left: 30%;margin-right: 30%;margin-top: 2%">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <span class="badge">14</span>
+                        stipulate
+                      </li>
+                      <li class="list-group-item">
+                        <span class="badge">12</span>
+                        ownership
+                      </li>
+                      <li class="list-group-item">
+                        <span class="badge">7</span>
+                        discipline
+                      </li>
+                      <li class="list-group-item">
+                        <span class="badge">4</span>
+                        incline
+                      </li>
+                      <li class="list-group-item">
+                        <span class="badge">4</span>
+                        termite
+                      </li>
+                    </ul>
                 </div>
+            </div>
+
 
         </div>
+
+
     </div>
 
 </body>

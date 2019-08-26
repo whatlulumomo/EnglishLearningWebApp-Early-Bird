@@ -12,13 +12,10 @@ class User(models.Model):
     coin =  models.IntegerField(default=0)                      #金币
     wordbook = models.CharField(max_length=20, default='GRE')   #单词书
     email = models.CharField(max_length=30, default='')
-
-
     # 动态信息
     word_num_today = models.IntegerField(default=0)             #今日单词数量
     word_num_remember = models.IntegerField(default=0)          #已经记忆
     day_signup = models.IntegerField(default=0)                 #累计打卡
-
     last_signup = models.CharField(max_length=20,default='',null=True,blank=True)
     word_total_remember = models.CharField(max_length=20000,default='',null=True,blank=True)
     word_total_plan = models.CharField(max_length=20000,default='',null=True,blank=True)
